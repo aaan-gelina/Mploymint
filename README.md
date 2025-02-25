@@ -17,10 +17,10 @@
 - To view features in development: [development branch]()
 
 ### User Guide
-[Click here for user guide](https://github.com/aaan-gelina/Mploymint/blob/703122cb6ec1a3549b9df6925f3f6fed22d5749a/docs/userguide.md)
+[Click here for user guide](https://github.com/aaan-gelina/Mploymint/blob/docs/userguide.md)
 
 ### Implementation Summary
-[Click here for system implementation summary](https://github.com/aaan-gelina/Mploymint/blob/703122cb6ec1a3549b9df6925f3f6fed22d5749a/docs/summary.md)
+[Click here for system implementation summary](https://github.com/aaan-gelina/Mploymint/blob/docs/summary.md)
 
 
 
