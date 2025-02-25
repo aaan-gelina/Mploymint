@@ -13,14 +13,14 @@
 
 ### Branch Workflow
 
-- To view features in production: [main branch]()
-- To view features in development: [development branch]()
+- To view features in production: [main branch](https://github.com/aaan-gelina/Mploymint/blob/main)
+- To view features in development: [development branch](https://github.com/aaan-gelina/Mploymint/blob/dev)
 
 ### User Guide
-[Click here for user guide](https://github.com/aaan-gelina/Mploymint/blob/docs/userguide.md)
+[Click here for user guide](https://github.com/aaan-gelina/Mploymint/blob/main/docs/userguide.md)
 
 ### Implementation Summary
-[Click here for system implementation summary](https://github.com/aaan-gelina/Mploymint/blob/docs/summary.md)
+[Click here for system implementation summary](https://github.com/aaan-gelina/main/Mploymint/blob/docs/summary.md)
 
 
 
