@@ -20,7 +20,7 @@
 [Click here for user guide](https://github.com/aaan-gelina/Mploymint/blob/main/docs/userguide.md)
 
 ### Implementation Summary
-[Click here for system implementation summary](https://github.com/aaan-gelina/blob/main/Mploymint/blob/docs/summary.md)
+[Click here for system implementation summary](https://github.com/aaan-gelina/Mploymint/blob/main/docs/summary.md)
 
 
 
