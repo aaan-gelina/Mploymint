@@ -1,0 +1,202 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  width: 80vw;
+  min-height: 80vh;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  align-items: center;
+}
+
+.left-section {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 80vh;
+  background-color: #F0FDF4;
+  border-radius: 8px 0 0 8px;
+  padding: 0;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.logo {
+  font-size: 3vw;
+  font-weight: bold;
+  color: #2F855A;
+  margin-left: 3vw;
+}
+
+.headline {
+  font-size: 4vw;
+  font-weight: bold;
+  color: black;
+  line-height: 1.5;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 4vw;
+  margin-right: 4vw;
+}
+
+.highlight {
+  color: #2F855A;
+}
+
+.right-section {
+  width: 50%;
+  padding: 3vw;
+  background: white;
+  border-radius: 0 8px 8px 0;
+  text-align: center;
+}
+
+.welcome {
+  font-size: 2vw;
+  font-weight: bold;
+  color: #333;
+}
+
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 2vh;
+}
+
+.toggle-buttons button {
+  padding: 1.5vh 3vw;
+  font-size: 1.2vw;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 0 1vw;
+  transition: 0.3s;
+}
+
+.toggle-buttons .active {
+  background: #2F855A;
+  color: white;
+}
+
+.login-text {
+  margin-top: 1.5vh;
+  color: #666;
+  font-size: 1vw;
+}
+
+.login-form {
+  margin-top: 2vh;
+  text-align: left;
+}
+
+.login-form label {
+  display: block;
+  font-size: 1vw;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 1vh;
+}
+
+.login-form input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1vh;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 2vh;
+  font-size: 1vw;
+}
+
+.login-btn {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1.5vh;
+  font-size: 1.2vw;
+  font-weight: bold;
+  background: #2F855A;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #276749;
+}
+
+.signup-text {
+  margin-top: 2vh;
+  font-size: 1vw;
+  color: #666;
+}
+
+.signup-link {
+  color: #2F855A;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .container {
+    flex-direction: column;
+    width: 90vw;
+    max-width: 450px;
+    min-height: 90vh;
+    padding: 5vh 5vw;
+    box-shadow: none;
+  }
+
+  .left-section {
+    width: 100%;
+    height: 15vh;
+    padding: 5vw;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+  }
+
+  .headline {
+    font-size: 5vw;
+  }
+
+  .right-section {
+    width: 100%;
+    padding: 5vw;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .toggle-buttons {
+    flex-direction: column;
+    gap: 2vw;
+  }
+
+  .toggle-buttons button {
+    width: 100%;
+  }
+
+  .login-form input {
+    padding: 2vw;
+    width: 100%;
+  }
+
+  .login-btn {
+    padding: 2vw;
+    width: 100%;
+  }
+}
