@@ -3,7 +3,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 button:hover, a:hover {
-    cursor: pointer;
+    cursor: pointer; 
 }
 a:hover {
     text-decoration: underline;
@@ -122,4 +122,9 @@ table td button:hover {
     bottom: 0px;
     left: 0px;
     padding: 0.75%;
+}
+@media (max-width: 767px) {
+    table {
+        overflow-y: scroll;
+    }
 }
