@@ -1,5 +1,3 @@
-
-
 .main-heading {
     color: #338573;
     font-family: Arial, Helvetica, sans-serif;
@@ -11,42 +9,50 @@ h2 {
     margin-bottom: 70px;
     background-color: #F4F5F7;
     width: 100%;
-    text-align: center;
     padding-top: 0.55%;
     padding-bottom: 0.55%;
     margin-bottom: 1.5%;
-
-}
-form {
-    display: flex;
-    flex-direction: column;
-    
-}
-
-input[type="text"], input[type="url"], input[type="date"], textarea, select {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 50%;
-    margin-left: 10px;
-    margin-right: 10px;
-    align-self: auto;
-}
-
-.textarea {
-    height: 100px;
-    
 }
 
 .form-row {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    margin-bottom: 20px; /* Adjust spacing between form rows */
 }
 
+.form-row > label,
+.form-row > input,
+.form-row > select {
+    margin-bottom: 5px; /* Space between label and input/select */
+}
 
+/* For inputs and selects that are side by side */
+.double-input-row {
+    display: flex;
+    flex-wrap: wrap; /* Allows for wrapping on smaller screens */
+}
 
+.double-input-row > div {
+    flex: 1; /* Allows flexible growth depending on content */
+    margin-right: 10px; /* Space between two inputs */
+    display: flex;
+    flex-direction: column;
+}
 
+.double-input-row > div:last-child {
+    margin-right: 0; /* Removes margin from the last element */
+}
+
+input[type="text"],
+input[type="url"],
+input[type="date"],
+textarea,
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Rounded corners for inputs and selects */
+    width: 100%; /* Ensures input takes full width of its parent container */
+}
 
 button {
     padding: 10px;
@@ -55,18 +61,18 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 100px;
 }
 
 button:hover {
-    background-color: #338573;
+    background-color: #2C6B57; /* Slightly darker shade for hover effect */
 }
+
 .footer {
     background-color: #338573;
     width: 100%;
-    bottom: 0px;
-    left: 0px;
     padding: 0.75%;
     margin-top: 1%;
-    position: absolute;
+    display: flex; /* Updated from 'position: flex' which is invalid */
+    justify-content: center;
+    align-items: center;
 }
