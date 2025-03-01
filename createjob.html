@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mploymint</title>
+    <link rel="stylesheet" href="./css/createjob.css">
+</head>
+<body>
+    <h1 class="main-heading">Mploymint</h1>
+    <h2>Create a Job</h2>
+    <form action="/submit-job" method="POST">
+        <div class="form-row">
+            <label for="company_name">Company Name</label>
+            <input type="text" id="company_name" name="company_name" placeholder="Company Name">
+
+            <label for="company_website">Company Website</label>
+            <input type="url" id="company_website" name="company_website" placeholder="Company Website Link">
+        </div>
+        <label for="job_title">Job Title</label>
+        <input type="text" id="job_title" name="job_title" placeholder="Job Title">
+
+        <div class="form-row">
+            <label for="job_category">Job Category</label>
+            <select id="job_category" name="job_category">
+                <option value="technology">Technology</option>
+                <option value="business">Business</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="education">Education</option>
+            </select>
+
+            <label for="job_type">Job Type</label>
+            <select id="job_type" name="job_type">
+                <option value="full_time">Full Time</option>
+                <option value="part_time">Part Time</option>
+                <option value="contract">Contract</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <label for="job_location">Job Location</label>
+            <input type="text" id="job_location" name="job_location" placeholder="Location">
+
+            <label for="salary_range">Salary Range</label>
+            <input type="text" id="salary_range" name="salary_range" placeholder="Salary Range">
+        </div>
+
+        <label for="experience">Experience</label>
+        <input type="text" id="experience" name="experience" placeholder="Experience">
+
+        <label for="qualification">Qualification</label>
+        <input type="text" id="qualification" name="qualification" placeholder="Qualification">
+
+        <label for="application_deadline">Application Deadline</label>
+        <input type="date" id="application_deadline" name="application_deadline" placeholder="Job application deadline">
+
+        <label for="application_link">Application Link</label>
+        <input type="url" id="application_link" name="application_link" placeholder="Job application link url">
+
+        <label for="job_description">Job Description</label>
+        <textarea id="job_description" name="job_description" placeholder="Job Description"></textarea>
+
+        <button type="submit">Post Job</button>
+    </form>
+    <div class="footer">
+        <br>
+    </div>
+</body>
+</html>

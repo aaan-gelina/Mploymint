@@ -1,0 +1,72 @@
+
+
+.main-heading {
+    color: #338573;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 30px;
+}    
+
+h2 {
+    text-align: center;
+    margin-bottom: 70px;
+    background-color: #F4F5F7;
+    width: 100%;
+    text-align: center;
+    padding-top: 0.55%;
+    padding-bottom: 0.55%;
+    margin-bottom: 1.5%;
+
+}
+form {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+input[type="text"], input[type="url"], input[type="date"], textarea, select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-self: auto;
+}
+
+.textarea {
+    height: 100px;
+    
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+
+button {
+    padding: 10px;
+    background-color: #338573;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+}
+
+button:hover {
+    background-color: #338573;
+}
+.footer {
+    background-color: #338573;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+    padding: 0.75%;
+    margin-top: 1%;
+    position: absolute;
+}
