@@ -17,30 +17,30 @@ h2 {
 .form-row {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px; /* Adjust spacing between form rows */
+    margin-bottom: 20px; 
 }
 
 .form-row > label,
 .form-row > input,
 .form-row > select {
-    margin-bottom: 5px; /* Space between label and input/select */
+    margin-bottom: 5px; 
 }
 
-/* For inputs and selects that are side by side */
+
 .double-input-row {
     display: flex;
-    flex-wrap: wrap; /* Allows for wrapping on smaller screens */
+    flex-wrap: wrap; 
 }
 
 .double-input-row > div {
-    flex: 1; /* Allows flexible growth depending on content */
-    margin-right: 10px; /* Space between two inputs */
+    flex: 1;
+    margin-right: 10px;
     display: flex;
     flex-direction: column;
 }
 
 .double-input-row > div:last-child {
-    margin-right: 0; /* Removes margin from the last element */
+    margin-right: 0;
 }
 
 input[type="text"],
@@ -50,8 +50,8 @@ textarea,
 select {
     padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 4px; /* Rounded corners for inputs and selects */
-    width: 100%; /* Ensures input takes full width of its parent container */
+    border-radius: 4px; 
+    width: 100%; 
 }
 
 button {
@@ -61,10 +61,11 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
 button:hover {
-    background-color: #2C6B57; /* Slightly darker shade for hover effect */
+    background-color: #2C6B57;
 }
 
 .footer {
@@ -72,7 +73,7 @@ button:hover {
     width: 100%;
     padding: 0.75%;
     margin-top: 1%;
-    display: flex; /* Updated from 'position: flex' which is invalid */
+    display: flex; 
     justify-content: center;
     align-items: center;
 }
