@@ -29,7 +29,7 @@
 
             <div class="settings">
                 <h4>SETTINGS</h4>
-                <a href="#" class="menu-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="settings.html" class="menu-item"><i class="fas fa-cog"></i> Settings</a>
             </div>
 
             <div class="user-profile">
