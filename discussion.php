@@ -24,12 +24,12 @@
             <ul class="menu">
                 <li><a href="#" class="menu-item"><i class="fas fa-briefcase"></i> Jobs</a></li>
                 <li><a href="#" class="menu-item"><i class="fas fa-list"></i> My Jobs List</a></li>
-                <li><a href="discussion.html" class="menu-item active"><i class="fas fa-comments"></i> Discussion</a></li>
+                <li><a href="discussion.php" class="menu-item active"><i class="fas fa-comments"></i> Discussion</a></li>
             </ul>
 
             <div class="settings">
                 <h4>SETTINGS</h4>
-                <a href="#" class="menu-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="settings.php" class="menu-item"><i class="fas fa-cog"></i> Settings</a>
             </div>
 
             <div class="user-profile">
