@@ -11,4 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
       companyBtn.classList.add("active");
       jobSeekerBtn.classList.remove("active");
   });
+  
+  if (window.location.search.includes("error")) {
+    history.replaceState({}, document.title, window.location.pathname);
+  }
 });
