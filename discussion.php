@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("Location: login.php");
+    exit();
+}
+require_once "php/discussion-function.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
