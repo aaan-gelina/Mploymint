@@ -1,3 +1,14 @@
+<?php
+$error = "";
+if (isset($_GET["error"])) {
+  if ($_GET["error"] == "email_taken") {
+    $error = "This email is already registered.";
+  } elseif ($_GET["error"] == "signup_failed") {
+    $error = "Signup failed. Please try again.";
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
