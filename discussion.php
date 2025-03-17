@@ -18,13 +18,8 @@ require_once "php/discussion-function.php";
 </head>
 
 <body>
-    <header class="navbar">
-        <h1 class="logo">Mploymint</h1>
-        <nav>
-            <a href="login.html" class="login-btn">Login</a>
-            <button class="btn-post-job">Post a job</button>
-        </nav>
-    </header>
+    <?php include "top-navbar.php"; ?>
+
 
     <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
 
@@ -42,10 +37,12 @@ require_once "php/discussion-function.php";
             </div>
 
             <div class="user-profile">
-                <div class="avatar-initials"></div>
+                <div class="avatar-initials">
+                    <?php echo strtoupper($user_name[0]); ?>
+                </div>
                 <div>
-                    <h5>Kevin Kim</h5>
-                    <p>kevin@gmail.com</p>
+                    <h5><?php echo $user_name; ?></h5>
+                    <p><?php echo $user_email; ?></p>
                 </div>
             </div>
         </aside>

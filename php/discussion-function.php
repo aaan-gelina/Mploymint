@@ -16,4 +16,7 @@ if (!$user) {
   header("Location: ../login.php");
   exit();
 }
+
+$user_name = htmlspecialchars($user['name']);
+$user_email = htmlspecialchars($user['email']);
 ?>
