@@ -3,15 +3,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const companyBtn = document.getElementById("companyBtn");
 
   jobSeekerBtn.addEventListener("click", () => {
-      jobSeekerBtn.classList.add("active");
-      companyBtn.classList.remove("active");
+    jobSeekerBtn.classList.add("active");
+    companyBtn.classList.remove("active");
   });
 
   companyBtn.addEventListener("click", () => {
-      companyBtn.classList.add("active");
-      jobSeekerBtn.classList.remove("active");
+    companyBtn.classList.add("active");
+    jobSeekerBtn.classList.remove("active");
   });
-  
+
   if (window.location.search.includes("error")) {
     history.replaceState({}, document.title, window.location.pathname);
   }
