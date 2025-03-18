@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("Location: login.php");
+    exit();
+}
+require_once "php/discussion-function.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,37 +18,11 @@
 </head>
 
 <body>
-    <header class="navbar">
-        <h1 class="logo">Mploymint</h1>
-        <nav>
-            <a href="login.html" class="login-btn">Login</a>
-            <button class="btn-post-job">Post a job</button>
-        </nav>
-    </header>
-
+    <?php include "top-navbar.php"; ?>
     <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
 
     <div class="container">
-        <aside class="sidebar" id="sidebar">
-            <ul class="menu">
-                <li><a href="#" class="menu-item"><i class="fas fa-briefcase"></i> Jobs</a></li>
-                <li><a href="#" class="menu-item"><i class="fas fa-list"></i> My Jobs List</a></li>
-                <li><a href="discussion.php" class="menu-item active"><i class="fas fa-comments"></i> Discussion</a></li>
-            </ul>
-
-            <div class="settings">
-                <h4>SETTINGS</h4>
-                <a href="settings.php" class="menu-item"><i class="fas fa-cog"></i> Settings</a>
-            </div>
-
-            <div class="user-profile">
-                <div class="avatar-initials"></div>
-                <div>
-                    <h5>Kevin Kim</h5>
-                    <p>kevin@gmail.com</p>
-                </div>
-            </div>
-        </aside>
+        <?php include "sidebar.php"; ?>
 
         <main class="forum">
             <div class="search-bar">
@@ -50,14 +33,45 @@
             <p>Connect with professionals, ask questions, and share insights.</p>
 
             <div class="new-post-container">
-                <textarea id="new-post-content" placeholder="Write something..."></textarea>
-                <button id="post-btn">Post</button>
+                <form method="POST" action="php/discussion-function.php">
+                    <textarea id="new-post-content" name="new-post-content" placeholder="Write something..." required></textarea>
+                    <button type="submit" id="post-btn">Post</button>
+                </form>
             </div>
 
-            <div class="forum-posts"></div>
+            <div class="forum-posts">
+                <?php 
+                if (count($posts) > 0) {  
+                    foreach ($posts as $post) { 
+                        $author_name = $post['name'];
+                        $first_letter = strtoupper(substr($author_name, 0, 1)); 
+
+                        $post_text = $post['description']; 
+                ?>
+                <div class="post" data-post-id="<?php echo $post['did']; ?>">
+                    <div class="post-header">
+                        <div class="avatar-initials"><?php echo $first_letter; ?></div>
+                        <div>
+                            <h4><?php echo $author_name; ?></h4>
+                        </div>
+                    </div>
+                    <p class="post-text"><?php echo nl2br($post_text); ?></p>
+                    <?php if ($post['creatorid'] == $_SESSION['uid']) { ?>
+                        <form method="POST" action="discussion.php" onsubmit="return confirm('Delete?');">
+                            <input type="hidden" name="delete_post_id" value="<?php echo $post['did']; ?>">
+                            <button type="submit" class="delete-btn">🗑️ Delete</button>
+                        </form>
+                    <?php } ?>
+                </div>
+                <?php 
+                    }
+                } else {  
+                    echo "<p>No discussions yet. Post new discussion</p>"; 
+                } 
+                ?>
+            </div>
         </main>
     </div>
-
     <div class="footer">
         <br>
     </div>
