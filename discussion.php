@@ -19,8 +19,6 @@ require_once "php/discussion-function.php";
 
 <body>
     <?php include "top-navbar.php"; ?>
-
-
     <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
 
     <div class="container">
@@ -56,14 +54,45 @@ require_once "php/discussion-function.php";
             <p>Connect with professionals, ask questions, and share insights.</p>
 
             <div class="new-post-container">
-                <textarea id="new-post-content" placeholder="Write something..."></textarea>
-                <button id="post-btn">Post</button>
+                <form method="POST" action="php/discussion-function.php">
+                    <textarea id="new-post-content" name="new-post-content" placeholder="Write something..." required></textarea>
+                    <button type="submit" id="post-btn">Post</button>
+                </form>
             </div>
 
-            <div class="forum-posts"></div>
+            <div class="forum-posts">
+                <?php 
+                if (count($posts) > 0) {  
+                    foreach ($posts as $post) { 
+                        $author_name = $post['name'];
+                        $first_letter = strtoupper(substr($author_name, 0, 1)); 
+
+                        $post_text = $post['description']; 
+                ?>
+                <div class="post" data-post-id="<?php echo $post['did']; ?>">
+                    <div class="post-header">
+                        <div class="avatar-initials"><?php echo $first_letter; ?></div>
+                        <div>
+                            <h4><?php echo $author_name; ?></h4>
+                        </div>
+                    </div>
+                    <p class="post-text"><?php echo nl2br($post_text); ?></p>
+                    <?php if ($post['creatorid'] == $_SESSION['uid']) { ?>
+                        <form method="POST" action="discussion.php" onsubmit="return confirm('Delete?');">
+                            <input type="hidden" name="delete_post_id" value="<?php echo $post['did']; ?>">
+                            <button type="submit" class="delete-btn">🗑️ Delete</button>
+                        </form>
+                    <?php } ?>
+                </div>
+                <?php 
+                    }
+                } else {  
+                    echo "<p>No discussions yet. Post new discussion</p>"; 
+                } 
+                ?>
+            </div>
         </main>
     </div>
-
     <div class="footer">
         <br>
     </div>

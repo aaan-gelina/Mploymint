@@ -113,6 +113,13 @@ body {
   margin-bottom: 1vh;
 }
 
+.new-post-container form {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  width: 100%;
+}
+
 #new-post-content {
   width: 90%;
   height: 5vh;
@@ -245,7 +252,6 @@ body {
 }
 
 .delete-btn {
-  display: none; 
   background: none;
   border: none;
   cursor: pointer;
