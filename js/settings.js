@@ -20,4 +20,4 @@ $(document).ready(function () {
         $updatephoto.show();
         $resetform.hide();
     });
-  });
+});
