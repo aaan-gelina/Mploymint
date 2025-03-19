@@ -21,6 +21,9 @@ a:hover {
     color: black;
     font-weight: bold;
 }
+a .button {
+    all: unset;
+}
 .button-container {
     text-align: center;
 }
