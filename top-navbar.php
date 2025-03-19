@@ -2,7 +2,7 @@
 session_start();
 $logged_in = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
 ?>
-
+<link rel="stylesheet" href="css/top-navbar.css">
 <header class="navbar">
   <h1 class="logo">Mploymint</h1>
   <nav>

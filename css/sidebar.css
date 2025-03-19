@@ -1,0 +1,72 @@
+.sidebar {
+  width: 20vw;
+  min-width: 15vw;
+  max-width: 20vw;
+  background: white;
+  padding: 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  border-right: 1px solid #ddd;
+  flex-shrink: 0;
+}
+
+.menu {
+  list-style: none;
+  margin-top: 0;
+  padding: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  border-radius: 8px;
+}
+
+.menu-item i {
+  margin-right: 10px;
+}
+
+.menu-item.active {
+  background: #e0f2e9;
+  font-weight: bold;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+  margin-top: 2vh;
+}
+
+.avatar-initials {
+  width: 3rem;
+  height: 3rem;
+  background-color: #2F855A;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  text-transform: uppercase;
+}
+
+.user-profile h5 {
+  margin: 0;
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+
+.user-profile p {
+  font-size: 1vw;
+  color: gray;
+}
