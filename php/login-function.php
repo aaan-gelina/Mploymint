@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION["loggedin"] = true;
       $_SESSION["uid"] = $row["uid"];
       $_SESSION["name"] = $row["name"];
+      $_SESSION["email"] = $safe_email;
       header("Location: ../discussion.php");
       exit();
     } else {
