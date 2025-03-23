@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sidebar.classList.toggle("active");
     });
 
-    // Close sidebar when clicking outside on mobile
+   
     document.addEventListener("click", (e) => {
         if (window.innerWidth <= 767) {
             if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
