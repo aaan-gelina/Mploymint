@@ -18,13 +18,22 @@ function renderJobs(jobArray) {
           <h4>${job.title}</h4>
           <p>📍 ${job.location} | ⏳ ${ job.type } | 💰 ${new Intl.NumberFormat().format(job.salary)}</p>
       </div>
-      <button class="btn-view">View Details</button>
+      <button class="btn-view" data-id="${job.jid}">View Details</button>
       `;
     jobList.appendChild(jobCard);
   });
 
   loadMoreBtn.style.display = displayedJobs >= jobArray.length ? "none" : "block";
 }
+
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("btn-view")) {
+    const jobId = event.target.getAttribute("data-id");
+    if (jobId) {
+      window.location.href = `job.php?job_id=${jobId}`;
+    }
+  }
+});
 
 function searchJobs() {
   const searchText = searchInput.value.toLowerCase();

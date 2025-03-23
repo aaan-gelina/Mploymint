@@ -28,18 +28,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $statement = $db->prepare("INSERT INTO discussion (creatorid, members, description, archive) VALUES (?, ?, ?, 0)");
     $default_members = "";
     $statement->bind_param("iss", $uid, $default_members, $post_content);
-    $statement->execute();
+    
+    if ($statement->execute()) {
+      $new_value = json_encode(["creatorid" => $uid, "members" => "", "description" => $post_content, "archive" => 0]);
+
+      $auditStmt = $db->prepare("
+      INSERT INTO audit_log (uid, email, action, description, db_table, operation, prev_value, new_value) 
+      VALUES (?, ?, 'Create', 'User created a discussion post', 'discussion', 'INSERT', '', ?)
+      ");
+      $auditStmt->bind_param("iss", $uid, $user_email, $new_value);
+      $auditStmt->execute();
+      $auditStmt->close();
+    }
+
     $statement->close();
     header("Location: ../discussion.php");
     exit();
   }
 
-  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_post_id"])) {
+  if (isset($_POST["delete_post_id"])) {
     $post_id = intval($_POST["delete_post_id"]);
+
+    $prevQuery = $db->prepare("SELECT * FROM discussion WHERE did = ?");
+    $prevQuery->bind_param("i", $post_id);
+    $prevQuery->execute();
+    $prevResult = $prevQuery->get_result();
+    $prevData = $prevResult->fetch_assoc();
+    $prev_value = json_encode($prevData);
+    $prevQuery->close();
 
     $delete_statement = $db->prepare("DELETE FROM discussion WHERE did = ?");
     $delete_statement->bind_param("i", $post_id);
-    $delete_statement->execute();
+
+    if ($delete_statement->execute()) {
+      $auditStmt = $db->prepare("
+      INSERT INTO audit_log (uid, email, action, description, db_table, operation, prev_value, new_value) 
+      VALUES (?, ?, 'Delete', 'User deleted a discussion post', 'discussion', 'DELETE', ?, '')
+      ");
+      $auditStmt->bind_param("sss", $uid, $user_email, $prev_value);
+      $auditStmt->execute();
+      $auditStmt->close();
+    }
+
     $delete_statement->close();
     $db->close();
 
@@ -57,4 +87,4 @@ if ($post_result->num_rows > 0) {
     $posts[] = $row;
   }
 }
-?>
+

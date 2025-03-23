@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="css/sidebar.css">
 <aside class="sidebar" id="sidebar">
   <ul class="menu">
     <li><a href="#" class="menu-item"><i class="fas fa-briefcase"></i> Jobs</a></li>
