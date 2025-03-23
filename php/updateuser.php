@@ -11,17 +11,41 @@
 
     $uid = $_SESSION['uid'];
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
-    $firstname = isset($_POST['firstname']) ? trim($_POST['firstname']) : '';
-    $lastname = isset($_POST['lastname']) ? trim($_POST['lastname']) : '';
     $description = isset($_POST['description']) ? trim($_POST['description']) : '';
+    $firstname = null;
+    $lastname = null;
+    $name = null;
 
-    if (empty($email) || empty($firstname) || empty($lastname) || empty($description)) {
-        echo json_encode(["message" => "All fields are required."]);
-        exit;
+    if (!(htmlspecialchars($type) == "company")) {
+        $firstname = isset($_POST['firstname']) ? trim($_POST['firstname']) : '';
+        $lastname = isset($_POST['lastname']) ? trim($_POST['lastname']) : '';
+
+        if (empty($email) || empty($firstname) || empty($lastname) || empty($description)) {
+            echo json_encode(["message" => "All fields are required."]);
+            exit;
+        }
+
+        if (str_contains($firstname, "`") || str_contains($lastname, "`")) {
+            echo json_encode(["message" => "Character '`' is not permitted in name field."]);
+            exit;
+        }
+    }
+    else {
+        $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+
+        if (empty($email) || empty($name) || empty($description)) {
+            echo json_encode(["message" => "All fields are required."]);
+            exit;
+        }
+
+        if (str_contains($name, "`")) {
+            echo json_encode(["message" => "Character '`' is not permitted in name field."]);
+            exit;
+        }
     }
 
     //Fetch values for audit
-    $fetchStmt = $db->prepare("SELECT email, name, description FROM user WHERE uid = ?");
+    $fetchStmt = $db->prepare("SELECT email, name, type, description FROM user WHERE uid = ?");
     $fetchStmt->bind_param("i", $uid);
     $fetchStmt->execute();
     $fetchStmt->bind_result($old_email, $old_name, $old_description);
@@ -34,7 +58,9 @@
         "description" => $old_description
     ]);
 
-    $name = $firstname . "`" . $lastname;
+    if (!(htmlspecialchars($type) == "company")) {
+        $name = $firstname . "`" . $lastname;
+    }
 
     $new_value = json_encode([
         "email" => $email, 

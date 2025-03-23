@@ -72,9 +72,13 @@
                         <div>
                             <label>Update Account Info</label>
                             <p class="inputs"><label for="email">Email: </label><input name="email" type="email" value="<?= htmlspecialchars($email); ?>" required /></p>
-                            <p class="inputs"><label for="firstname">First Name: </label><input name="firstname" type="text" value="<?= htmlspecialchars($firstname); ?>" required /></p>
-                            <p class="inputs"><label for="lastname">Last Name: </label><input name="lastname" type="text" value="<?= htmlspecialchars($lastname); ?>" required /></p>
-                        </div>
+                            <?php if (!(htmlspecialchars($type) == "company")) { ?>
+                                <p class="inputs"><label for="firstname">First Name: </label><input name="firstname" type="text" value="<?= htmlspecialchars($firstname); ?>" required /></p>
+                                <p class="inputs"><label for="lastname">Last Name: </label><input name="lastname" type="text" value="<?= htmlspecialchars($lastname); ?>" required /></p>
+                            <?php } else { ?>
+                                <p class="inputs"><label for="name">Company Name: </label><input name="name" type="text" value="<?= htmlspecialchars($name); ?>" required /></p>
+                            <?php } ?>
+                            </div>
                         <div>
                             <label for="desc">Update Description</label>
                             <textarea id="desc" name="description" rows="4" placeholder="Enter your description here..." required><?= htmlspecialchars($description); ?></textarea>
