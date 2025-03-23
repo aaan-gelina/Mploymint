@@ -5,7 +5,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
-// Initialize variables to store form data
 $form_data = array(
     'company_name' => '',
     'company_website' => '',
@@ -21,10 +20,9 @@ $form_data = array(
     'job_description' => ''
 );
 
-// Restore form data if available
 if (isset($_SESSION['form_data'])) {
     $form_data = $_SESSION['form_data'];
-    unset($_SESSION['form_data']); // Clear the stored data
+    unset($_SESSION['form_data']);
 }
 
 $error = "";
@@ -145,17 +143,15 @@ if (isset($_GET["error"])) {
             
             const deadline = new Date(document.getElementById('application_deadline').value);
             const today = new Date();
-            today.setHours(0, 0, 0, 0); // Reset time part for accurate date comparison
+            today.setHours(0, 0, 0, 0);
             
             if (deadline < today) {
                 alert('Application deadline cannot be in the past');
                 return false;
             }
 
-            // Get experience value and convert to lowercase for comparison
             const experience = document.getElementById('experience').value.toLowerCase();
             if (!experience.includes('year')) {
-                // Add 'years' if user only entered a number
                 const expNum = parseInt(experience);
                 if (!isNaN(expNum)) {
                     document.getElementById('experience').value = expNum + ' years';
