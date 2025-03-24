@@ -2,16 +2,16 @@
 session_start();
 include $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/dbconnect.php';
 
-// Check if user is logged in
+
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: login.php");
     exit();
 }
 
-// Include the function file after session check
+
 include_once "php/profile-function.php";
 
-// Get the current resume if it exists
+
 $current_resume = null;
 if (isset($_SESSION['uid'])) {
     $uid = $_SESSION['uid'];
@@ -79,7 +79,7 @@ if (isset($_SESSION['uid'])) {
                         <input type="email" value="<?php echo $_SESSION['email']; ?>" readonly class="readonly-field">
                     </div>
 
-                    <!-- Editable fields -->
+                   
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
                         <input type="tel" id="phone" name="phone" value="<?php echo isset($_SESSION['phone']) ? $_SESSION['phone'] : ''; ?>" placeholder="Enter your phone number">
