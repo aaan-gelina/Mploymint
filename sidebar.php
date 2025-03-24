@@ -1,22 +1,5 @@
 <?php
-
 $current_page = basename($_SERVER['PHP_SELF']);
-$uid = $_SESSION['uid'];
-
-$uid_query = $db->prepare("SELECT name, email, type FROM user WHERE uid = ?");
-    $uid_query->bind_param("i", $uid);
-    $uid_query->execute();
-    $uid_query->bind_result($name, $email, $type);
-    $uid_query->fetch();
-    $uid_query->close();
-
-    if (!(htmlspecialchars($type) == "company")) {
-      $name_parts = explode("`", $name);
-      $firstname = $name_parts[0] ?? '';
-      $lastname = $name_parts[1] ?? '';
-      $name = $firstname . " " . $lastname;
-  }
-
 ?>
 <link rel="stylesheet" href="css/sidebar.css">
 <aside class="sidebar" id="sidebar">
@@ -35,13 +18,12 @@ $uid_query = $db->prepare("SELECT name, email, type FROM user WHERE uid = ?");
  
   <div class="user-profile">
     <div class="avatar-initials">
-      <?php echo strtoupper($name[0]); ?>
+      <?php echo strtoupper($user_name[0]); ?>
     </div>
     <div>
-      <h5><?php echo htmlspecialchars($name); ?></h5>
-      <p><?php echo htmlspecialchars($email); ?></p>
+      <h5><?php echo $user_name; ?></h5>
+      <p><?php echo $user_email; ?></p>
     </div>
   </div>
  
 </aside>
-
