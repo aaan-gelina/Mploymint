@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `application` (
   `aid` int(11) NOT NULL,
+  `jid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
   `cid` int(11) NOT NULL,
   `status` varchar(25) NOT NULL,

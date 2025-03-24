@@ -66,6 +66,37 @@ img {
 .button-container {
     text-align: center;
 }
+textarea {
+    display: block;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    padding-left: 0.5%;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    width: 50%;
+    margin: 2% auto;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+    height: 80px;
+    resize: vertical;
+}
+textarea:hover {
+    border: 2px solid #338573;
+}
+p label {
+    font-weight: bold;
+}
+.para {
+    width: 50%;
+    padding-left: 25%;
+}
+.inputs input {
+    display: inline;
+}
+.inputs label {
+    font-weight: normal;
+}
 input {
     display: block;
     padding-top: 0.5%;
