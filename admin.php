@@ -35,9 +35,6 @@ if (!(htmlspecialchars($type) == "admin")) {
     <div class="cont">
       <?php include "sidebar.php"; ?>
       <main class="layout">
-          <div class="head-container">
-            <h1 class="main-heading">Mploymint</h1>
-          </div>
           <div class="nav">
             <button class="button selected">Activity Log</button>
             <button class="button">Users (<span>12</span>)</button>

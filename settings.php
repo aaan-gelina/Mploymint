@@ -38,9 +38,6 @@
     <div class="cont">
         <?php include "sidebar.php"; ?>
         <main class="layout">
-            <div class="page-title">
-                <h2 class="page-heading">Settings</h2>
-            </div>
             <div class="container">
                 <div class="image-container">
                     <div class="image">
