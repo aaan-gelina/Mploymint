@@ -63,6 +63,7 @@ CREATE TABLE `audit_log` (
 
 CREATE TABLE `discussion` (
   `did` int(11) NOT NULL,
+  `title` varchar(250) NOT NULL,
   `creatorid` int(11) NOT NULL,
   `members` text NOT NULL,
   `taglist` text DEFAULT NULL,

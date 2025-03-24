@@ -1,5 +1,4 @@
 <?php
-session_start();
 $logged_in = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
 ?>
 <link rel="stylesheet" href="css/top-navbar.css">
