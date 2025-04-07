@@ -1,26 +1,13 @@
 <?php
-$uid = $_SESSION['uid'];
-
-$uid_query = $db->prepare("SELECT name, email, type FROM user WHERE uid = ?");
-    $uid_query->bind_param("i", $uid);
-    $uid_query->execute();
-    $uid_query->bind_result($name, $email, $type);
-    $uid_query->fetch();
-    $uid_query->close();
-
-    if (!(htmlspecialchars($type) == "company")) {
-      $name_parts = explode("`", $name);
-      $firstname = $name_parts[0] ?? '';
-      $lastname = $name_parts[1] ?? '';
-      $name = $firstname . " " . $lastname;
-  }
+$current_page = basename($_SERVER['PHP_SELF']);
 ?>
 <link rel="stylesheet" href="css/sidebar.css">
 <aside class="sidebar" id="sidebar">
   <ul class="menu">
     <li><a href="#" class="menu-item"><i class="fas fa-briefcase"></i> Jobs</a></li>
     <li><a href="#" class="menu-item"><i class="fas fa-list"></i> My Jobs List</a></li>
-    <li><a href="discussion.php" class="menu-item active"><i class="fas fa-comments"></i> Discussion</a></li>
+    <li><a href="discussion.php" class="menu-item"><i class="fas fa-comments"></i> Discussion</a></li>
+    <li><a href="/Mploymint/profile.php" class="menu-item <?php echo $current_page === 'profile.php' ? 'active' : ''; ?>"><i class="fas fa-user"></i> Profile</a></li>
   </ul>
 
   <div class="settings">
@@ -28,14 +15,15 @@ $uid_query = $db->prepare("SELECT name, email, type FROM user WHERE uid = ?");
     <a href="settings.php" class="menu-item"><i class="fas fa-cog"></i> Settings</a>
   </div>
 
+ 
   <div class="user-profile">
     <div class="avatar-initials">
-      <?php echo strtoupper($name[0]); ?>
+      <?php echo strtoupper($user_name[0]); ?>
     </div>
     <div>
-      <h5><?php echo htmlspecialchars($name); ?></h5>
-      <p><?php echo htmlspecialchars($email); ?></p>
+      <h5><?php echo $user_name; ?></h5>
+      <p><?php echo $user_email; ?></p>
     </div>
   </div>
+ 
 </aside>
-
