@@ -36,7 +36,7 @@ require_once "php/joblist-function.php";
           foreach ($jobs as $job) { ?>
             <div class="post">
               <div class="post-header">
-                <div class="avatar-initials">J</div>
+                <div class="avatar-initials"><?= strtoupper(substr($job['title'], 0, 1)) ?></div>
                 <div>
                   <h4><?= $job['title'] ?></h4>
                   <p>
