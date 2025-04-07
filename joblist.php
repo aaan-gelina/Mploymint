@@ -23,8 +23,10 @@ require_once "php/joblist-function.php";
 
   <div class="container">
     <?php include "sidebar.php"; ?>
-
     <main class="forum">
+      <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search for job title">
+      </div>
       <h2>Available Job Listings</h2>
       <p>Explore opportunities posted by professionals and companies.</p>
 
@@ -68,6 +70,6 @@ require_once "php/joblist-function.php";
   </div>
 
   <div class="footer"><br></div>
-  <script src="js/discussion.js"></script>
+  <script src="js/joblist.js"></script>
 </body>
 </html>
