@@ -2,11 +2,6 @@
 session_start();
 include $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/dbconnect.php';
 
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-  header("Location: ../login.php");
-  exit();
-}
-
 $uid = $_SESSION["uid"];
 
 $query = "SELECT name, email FROM user WHERE uid = ?";
