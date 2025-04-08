@@ -12,7 +12,7 @@ $user_type = $logged_in ? $_SESSION['type'] : null;
     <?php else: ?>
       <a href="/Mploymint/php/logout-function.php" class="login-btn">Logout</a>
       <?php if ($user_type === 'company'): ?>
-        <button class="btn-post-job">Post a job</button>
+        <a href="/Mploymint/createjob.php" class="btn-post-job">Post a job</a>
       <?php endif; ?>
     <?php endif; ?>
   </nav>
