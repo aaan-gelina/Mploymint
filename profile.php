@@ -10,21 +10,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
 
 include_once "php/profile-function.php";
-
-
-$current_resume = null;
-if (isset($_SESSION['uid'])) {
-    $uid = $_SESSION['uid'];
-    $query = "SELECT filename FROM resume WHERE uid = ? AND archive = 0 LIMIT 1";
-    $stmt = $db->prepare($query);
-    $stmt->bind_param("i", $uid);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $current_resume = $result->fetch_assoc();
-    }
-    $stmt->close();
-}
 ?>
 
 <!DOCTYPE html>
@@ -102,54 +87,6 @@ if (isset($_SESSION['uid'])) {
 
                     <button type="submit" class="save-btn">Save Changes</button>
                 </form>
-            </div>
-
-            <div class="profile-section">
-                <h3>Resume/CV</h3>
-                <p>Upload your resume in PDF or Word format (.pdf, .doc, .docx)</p>
-
-                <?php if (isset($_GET['error'])): ?>
-                    <div class="alert error">
-                        <?php
-                        switch($_GET['error']) {
-                            case 'upload':
-                                echo 'Error uploading file. Please try again.';
-                                break;
-                            case 'type':
-                                echo 'Invalid file type. Please upload PDF or Word documents only.';
-                                break;
-                            case 'move':
-                                echo 'Error saving file. Please try again.';
-                                break;
-                            case 'database':
-                                echo 'Error saving to database. Please try again.';
-                                break;
-                            default:
-                                echo 'An error occurred. Please try again.';
-                        }
-                        ?>
-                    </div>
-                <?php endif; ?>
-
-                <?php if (isset($_GET['success']) && $_GET['success'] === 'resume'): ?>
-                    <div class="alert success">Resume uploaded successfully!</div>
-                <?php endif; ?>
-
-                <?php if ($current_resume): ?>
-                    <div class="current-resume">
-                        <p>Current Resume: <a href="uploads/resumes/<?php echo htmlspecialchars($current_resume['filename']); ?>" target="_blank"><?php echo htmlspecialchars($current_resume['filename']); ?></a></p>
-                    </div>
-                <?php endif; ?>
-
-                <div class="resume-upload">
-                    <form action="php/upload-resume.php" method="POST" enctype="multipart/form-data">
-                        <label for="resume" class="file-label">Choose a file or drag it here</label>
-                        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
-                        <button type="submit" class="upload-btn">
-                            <i class="fas fa-upload"></i> Upload New Resume
-                        </button>
-                    </form>
-                </div>
             </div>
         </main>
     </div>
