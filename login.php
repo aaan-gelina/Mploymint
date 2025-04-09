@@ -29,13 +29,8 @@ if (isset($_GET["error"])) {
 
         <div class="right-section">
             <h2 class="welcome">Welcome Back!</h2>
-
-            <div class="toggle-buttons">
-                <button id="jobSeekerBtn" class="active">Job Seeker</button>
-                <button id="companyBtn">Company</button>
-            </div>
         
-            <p class="login-text">Or login with email</p>
+            <p class="login-text">Login with email</p>
 
             <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
 

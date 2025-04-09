@@ -27,9 +27,13 @@ require_once "php/joblist-function.php";
       <div class="search-bar">
         <input type="text" class="search-input" placeholder="Search for job title">
       </div>
-      <h2>Available Job Listings</h2>
-      <p>Explore opportunities posted by professionals and companies.</p>
-
+      <?php if ($_SESSION['type'] === 'company'): ?>
+        <h2>My Job Postings</h2>
+        <p>Manage the jobs you have posted below.</p>
+      <?php else: ?>
+        <h2>Available Job Listings</h2>
+        <p>Explore opportunities posted by professionals and companies.</p>
+      <?php endif; ?>
       <div class="forum-posts">
         <?php 
         if (count($jobs) > 0) {
@@ -46,17 +50,26 @@ require_once "php/joblist-function.php";
                   </p>
                 </div>
               </div>
-
-              <?php if (in_array($job['jid'], $applied_jobs)): ?>
-                <p class="applied-label">✅ Applied</p>
-              <?php else: ?>
+              <?php if ($_SESSION['type'] === 'company'): ?>
                 <div class="action-buttons">
-                  <a href="job.php?jid=<?= $job['jid'] ?>" class="apply-btn">Detail</a>
-                  <form method="POST" action="php/joblist-function.php">
-                    <input type="hidden" name="apply_jid" value="<?= $job['jid'] ?>">
-                    <button type="submit" class="apply-btn">Apply</button>
+                  <a href="job.php?jid=<?= $job['jid'] ?>" class="apply-btn">View</a>
+                  <form method="POST" action="php/joblist-function.php" style="display:inline;">
+                    <input type="hidden" name="delete_jid" value="<?= $job['jid'] ?>">
+                    <button type="submit" class="apply-btn">Delete</button>
                   </form>
                 </div>
+              <?php else: ?>
+                <?php if (in_array($job['jid'], $applied_jobs)): ?>
+                  <p class="applied-label">✅ Applied</p>
+                <?php else: ?>
+                  <div class="action-buttons">
+                    <a href="job.php?jid=<?= $job['jid'] ?>" class="apply-btn">Detail</a>
+                    <form method="POST" action="php/joblist-function.php">
+                      <input type="hidden" name="apply_jid" value="<?= $job['jid'] ?>">
+                      <button type="submit" class="apply-btn">Apply</button>
+                    </form>
+                  </div>
+                <?php endif; ?>
               <?php endif; ?>
             </div>
         <?php 
