@@ -27,14 +27,18 @@ SET time_zone = "+00:00";
 -- Table structure for table `application`
 --
 
+DROP TABLE IF EXISTS `application`;
+
 CREATE TABLE `application` (
-  `aid` int(11) NOT NULL,
-  `jid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `cid` int(11) NOT NULL,
-  `status` varchar(25) NOT NULL,
-  `archive` tinyint(1) NOT NULL DEFAULT 0
+  `aid` INT(11) NOT NULL AUTO_INCREMENT,
+  `jid` INT(11) NOT NULL,
+  `uid` INT(11) NOT NULL,
+  `cid` INT(11) NOT NULL,
+  `status` VARCHAR(25) NOT NULL DEFAULT 'pending',
+  `archive` TINYINT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 
