@@ -28,7 +28,14 @@ if (isset($_SESSION['uid'])) {
 
         $_SESSION['name'] = $user_data['name'];
         $_SESSION['email'] = $user_data['email'];
-        $_SESSION['bio'] = $user_data['description']; // Store description as bio
+        
+       
+        if ($_SESSION['type'] === 'company') {
+            $_SESSION['description'] = $user_data['description']; 
+        } else {
+            $_SESSION['bio'] = $user_data['description']; 
+        }
+        
         $_SESSION['phone'] = $user_data['phone'];
         $_SESSION['location'] = $user_data['location'];
         $_SESSION['skills'] = $user_data['skills'];
@@ -40,19 +47,30 @@ if (isset($_SESSION['uid'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone = $_POST['phone'] ?? '';
     $location = $_POST['location'] ?? '';
-    $bio = $_POST['bio'] ?? ''; 
     $skills = $_POST['skills'] ?? '';
     
+    
+    if ($_SESSION['type'] === 'company') {
+        $description = $_POST['description'] ?? '';
+    } else {
+        $description = $_POST['bio'] ?? ''; 
+    }
 
     $update_query = "UPDATE user SET phone = ?, location = ?, description = ?, skills = ? WHERE uid = ?";
     $stmt = $db->prepare($update_query);
-    $stmt->bind_param("ssssi", $phone, $location, $bio, $skills, $uid);
+    $stmt->bind_param("ssssi", $phone, $location, $description, $skills, $uid);
     
     if ($stmt->execute()) {
-       
         $_SESSION['phone'] = $phone;
         $_SESSION['location'] = $location;
-        $_SESSION['bio'] = $bio; 
+        
+      
+        if ($_SESSION['type'] === 'company') {
+            $_SESSION['description'] = $description;
+        } else {
+            $_SESSION['bio'] = $description;
+        }
+        
         $_SESSION['skills'] = $skills;
         
         header("Location: ../profile.php?success=1");

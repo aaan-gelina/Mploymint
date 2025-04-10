@@ -2,11 +2,11 @@
 session_start();
 include $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/dbconnect.php';
 
-
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit();
 }
+
 
 // Check for view-only mode for companies viewing applicant profiles
 $view_only = isset($_GET['view_only']) && $_GET['view_only'] === 'true';
@@ -31,7 +31,27 @@ if ($view_only && isset($_GET['uid']) && is_numeric($_GET['uid'])) {
     }
 }
 
+
 include_once "php/profile-function.php";
+
+
+$current_resume = null;
+if (isset($_SESSION['uid'])) {
+    $uid = $_SESSION['uid'];
+    $query = "SELECT filename FROM resume WHERE uid = ? AND archive = 0 LIMIT 1";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param("i", $uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $current_resume = $result->fetch_assoc();
+    }
+    $stmt->close();
+}
+
+
+$resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'invalid'];
+
 ?>
 
 <!DOCTYPE html>
@@ -63,13 +83,17 @@ include_once "php/profile-function.php";
                 <p>Manage your personal information and preferences</p>
             <?php endif; ?>
 
-            <?php if (isset($_GET['success'])): ?>
+            <?php if (isset($_GET['success']) && $_GET['success'] !== 'resume'): ?>
                 <div class="alert success">Profile updated successfully!</div>
             <?php endif; ?>
 
-            <?php if (isset($_GET['error'])): ?>
+            <?php 
+           
+            if (isset($_GET['error']) && !in_array($_GET['error'], $resume_error_codes)): 
+            ?>
                 <div class="alert error">Error updating profile. Please try again.</div>
             <?php endif; ?>
+
 
             <div class="profile-card">
                 <div class="profile-header">
@@ -145,28 +169,160 @@ include_once "php/profile-function.php";
                     <div class="form-group">
                         <label>Email</label>
                         <input type="email" value="<?php echo $_SESSION['email']; ?>" readonly class="readonly-field">
+
+            <?php if ($_SESSION['type'] === 'company'): ?>
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="avatar-large">
+                            <?php echo strtoupper($_SESSION['name'][0]); ?>
+                        </div>
+                        <div class="profile-info">
+                            <h3><?php echo $_SESSION['name']; ?></h3>
+                            <p><?php echo $_SESSION['email']; ?></p>
+                        </div>
+
                     </div>
 
-                   
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" value="<?php echo isset($_SESSION['phone']) ? $_SESSION['phone'] : ''; ?>" placeholder="Enter your phone number">
+                    <form class="profile-form" method="POST" action="/Mploymint/php/profile-function.php">
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input type="text" value="<?php echo $_SESSION['name']; ?>" readonly class="readonly-field">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" value="<?php echo $_SESSION['email']; ?>" readonly class="readonly-field">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" value="<?php echo isset($_SESSION['phone']) ? htmlspecialchars($_SESSION['phone']) : ''; ?>" placeholder="Enter your phone number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" value="<?php echo isset($_SESSION['location']) ? htmlspecialchars($_SESSION['location']) : ''; ?>" placeholder="Enter your location">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" rows="4" placeholder="Describe your company"><?php echo isset($_SESSION['description']) ? htmlspecialchars($_SESSION['description']) : ''; ?></textarea>
+                        </div>
+
+                        <button type="submit" class="save-btn">Save Changes</button>
+                    </form>
+                </div>
+            <?php else: ?>
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="avatar-large">
+                            <?php echo strtoupper($_SESSION['name'][0]); ?>
+                        </div>
+                        <div class="profile-info">
+                            <h3><?php echo $_SESSION['name']; ?></h3>
+                            <p><?php echo $_SESSION['email']; ?></p>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" id="location" name="location" value="<?php echo isset($_SESSION['location']) ? $_SESSION['location'] : ''; ?>" placeholder="Enter your location">
-                    </div>
+                    <form class="profile-form" method="POST" action="/Mploymint/php/profile-function.php">
+                        
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" value="<?php echo $_SESSION['name']; ?>" readonly class="readonly-field">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="bio">Bio</label>
-                        <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself"><?php echo isset($_SESSION['bio']) ? $_SESSION['bio'] : ''; ?></textarea>
-                    </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" value="<?php echo $_SESSION['email']; ?>" readonly class="readonly-field">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="skills">Skills (comma separated)</label>
-                        <input type="text" id="skills" name="skills" value="<?php echo isset($_SESSION['skills']) ? $_SESSION['skills'] : ''; ?>" placeholder="e.g. JavaScript, PHP, MySQL">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" value="<?php echo isset($_SESSION['phone']) ? htmlspecialchars($_SESSION['phone']) : ''; ?>" placeholder="Enter your phone number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" value="<?php echo isset($_SESSION['location']) ? htmlspecialchars($_SESSION['location']) : ''; ?>" placeholder="Enter your location">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself"><?php echo isset($_SESSION['bio']) ? htmlspecialchars($_SESSION['bio']) : ''; ?></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="skills">Skills (comma separated)</label>
+                            <input type="text" id="skills" name="skills" value="<?php echo isset($_SESSION['skills']) ? htmlspecialchars($_SESSION['skills']) : ''; ?>" placeholder="e.g. JavaScript, PHP, MySQL">
+                        </div>
+
+                        <button type="submit" class="save-btn">Save Changes</button>
+                    </form>
+                </div>
+            <?php endif; ?>
+
+     
+            <?php if ($_SESSION['type'] !== 'company'): ?>
+                <div class="profile-section">
+                    <h3>Resume/CV</h3>
+                    <p>Upload your resume in PDF format (.pdf)</p>
+
+                    <?php 
+                    if (isset($_GET['error']) && in_array($_GET['error'], $resume_error_codes)): 
+                    ?>
+                        <div class="alert error">
+                            <?php
+                            switch($_GET['error']) {
+                                case 'upload':
+                                    echo 'Error during file upload process. Please try again.';
+                                    break;
+                                case 'type':
+                                    echo 'Invalid file type. Please upload PDF only.';
+                                    break;
+                                case 'move':
+                                    echo 'Error saving file. Please check permissions or try again.';
+                                    break;
+                                case 'database':
+                                    echo 'Error saving resume information to the database. Please try again.';
+                                    break;
+                                case 'dir_create':
+                                    echo 'Error creating upload directory. Please check server permissions.';
+                                    break;
+                                case 'invalid':
+                                    echo 'Invalid request or no file uploaded. Please select a file and try again.';
+                                    break;
+                                default:
+                                    echo 'An unknown error occurred during resume upload. Please try again.';
+                            }
+                            ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (isset($_GET['success']) && $_GET['success'] === 'resume'): ?>
+                        <div class="alert success">Resume uploaded successfully!</div>
+                    <?php endif; ?>
+
+                    <?php if ($current_resume): ?>
+                        <div class="current-resume">
+                            <p>Current Resume: <a href="uploads/resumes/<?php echo htmlspecialchars($current_resume['filename']); ?>" target="_blank"><?php echo htmlspecialchars($current_resume['filename']); ?></a></p>
+                        </div>
+                    <?php else: ?>
+                        <p>No resume uploaded yet.</p> 
+                    <?php endif; ?>
+
+                    <div class="resume-upload">
+                        <form action="/Mploymint/php/upload-resume.php" method="POST" enctype="multipart/form-data">
+                            <label for="resume" class="file-label">Choose a file or drag it here</label>
+                            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                            <button type="submit" class="upload-btn">
+                                <i class="fas fa-upload"></i> Upload New Resume
+                            </button>
+                        </form>
                     </div>
+                </div>
+            <?php endif; ?>
+           
+
 
                     <button type="submit" class="save-btn">Save Changes</button>
                 </form>
