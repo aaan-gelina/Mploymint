@@ -128,8 +128,6 @@ table td button:hover {
     left: 0px;
     padding: 0.75%;
 }
-@media (max-width: 767px) {
-    table {
-        overflow-y: scroll;
-    }
+table {
+    overflow-y: scroll;
 }

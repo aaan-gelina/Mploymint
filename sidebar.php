@@ -38,3 +38,17 @@ $is_default_img = $profileimg === 'profile.jpg';
     </div>
   </div>
 </aside>
+<div class="user-profile">
+    <?php if (!$is_default_img): ?>
+      <div class="avatar-img">
+        <img src="./img/<?php echo htmlspecialchars($profileimg); ?>" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+      </div>
+    <?php else: ?>
+      <div class="avatar-initials">
+        <?php echo strtoupper($user_name[0]); ?>
+      </div>
+    <?php endif; ?>
+    <div>
+      <h5><?php echo $user_name; ?></h5>
+      <p><?php echo $user_email; ?></p>
+    </div>

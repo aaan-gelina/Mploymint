@@ -255,7 +255,7 @@ if (!(htmlspecialchars($type) == "admin")) {
     <div class="footer">
       <br>
     </div>
-    <script src="./js/admin.js"></script>
+    <script src="/js/admin.js"></script>
   </body>
 </html>     <td>1</td>
             <td><a herf="">[Title]</a></td>
