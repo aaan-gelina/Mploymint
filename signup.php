@@ -49,7 +49,7 @@ if (isset($_GET["error"])) {
       </form>
 
       <p class="login-text">
-        Already have an account? <a href="login.php" class="login-link">Login</a>
+        Already have an account? <a href="./login.php" class="login-link">Login</a>
       </p>
     </div>
   </div>

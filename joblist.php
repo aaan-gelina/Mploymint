@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: login.php");
+    header("Location: ./login.php");
     exit();
 }
-require_once "php/joblist-function.php";
+require_once "./php/joblist-function.php";
 ?>
 
 <!DOCTYPE html>
@@ -13,16 +13,16 @@ require_once "php/joblist-function.php";
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mploymint</title>
-  <link rel="stylesheet" href="css/discussion.css">
-  <link rel="stylesheet" href="css/joblist.css">
+  <link rel="stylesheet" href="./css/discussion.css">
+  <link rel="stylesheet" href="./css/joblist.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-  <?php include "top-navbar.php"; ?>
+  <?php include "./top-navbar.php"; ?>
   <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
 
   <div class="container">
-    <?php include "sidebar.php"; ?>
+    <?php include "./sidebar.php"; ?>
     <main class="forum">
       <div class="search-bar">
         <input type="text" class="search-input" placeholder="Search for job title">
@@ -52,8 +52,8 @@ require_once "php/joblist-function.php";
               </div>
               <?php if ($_SESSION['type'] === 'company'): ?>
                 <div class="action-buttons">
-                  <a href="job.php?jid=<?= $job['jid'] ?>" class="apply-btn">View</a>
-                  <form method="POST" action="php/joblist-function.php" style="display:inline;">
+                  <a href="./job.php?jid=<?= $job['jid'] ?>" class="apply-btn">View</a>
+                  <form method="POST" action="./php/joblist-function.php" style="display:inline;">
                     <input type="hidden" name="delete_jid" value="<?= $job['jid'] ?>">
                     <button type="submit" class="apply-btn">Delete</button>
                   </form>
@@ -63,8 +63,8 @@ require_once "php/joblist-function.php";
                   <p class="applied-label">✅ Applied</p>
                 <?php else: ?>
                   <div class="action-buttons">
-                    <a href="job.php?jid=<?= $job['jid'] ?>" class="apply-btn">Detail</a>
-                    <form method="POST" action="php/joblist-function.php">
+                    <a href="./job.php?jid=<?= $job['jid'] ?>" class="apply-btn">Detail</a>
+                    <form method="POST" action="./php/joblist-function.php">
                       <input type="hidden" name="apply_jid" value="<?= $job['jid'] ?>">
                       <button type="submit" class="apply-btn">Apply</button>
                     </form>
@@ -83,6 +83,6 @@ require_once "php/joblist-function.php";
   </div>
 
   <div class="footer"><br></div>
-  <script src="js/joblist.js"></script>
+  <script src="./js/joblist.js"></script>
 </body>
 </html>

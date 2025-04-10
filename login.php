@@ -43,7 +43,7 @@ if (isset($_GET["error"])) {
             </form>
 
             <p class="signup-text">
-                Don't have an account? <a href="signup.php" class="signup-link">Sign Up</a>
+                Don't have an account? <a href="./signup.php" class="signup-link">Sign Up</a>
             </p>
         </div>
     </div>

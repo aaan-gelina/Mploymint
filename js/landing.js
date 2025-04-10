@@ -30,7 +30,7 @@ document.addEventListener("click", function (event) {
   if (event.target.classList.contains("btn-view")) {
     const jobId = event.target.getAttribute("data-id");
     if (jobId) {
-      window.location.href = `job.php?job_id=${jobId}`;
+      window.location.href = `job.php?jid=${jobId}`;
     }
   }
 });
