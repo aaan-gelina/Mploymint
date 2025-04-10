@@ -42,8 +42,28 @@ try {
     
     error_log("Form data received: " . print_r($_POST, true));
     
-    if (!isset($_SESSION["uid"]) || !isset($_SESSION["email"])) {
-        throw new Exception("Session data missing - UID: " . isset($_SESSION["uid"]) . ", Email: " . isset($_SESSION["email"]));
+    // Check if UID exists, if not redirect to login
+    if (!isset($_SESSION["uid"])) {
+        header("Location: ../login.php?error=session_expired");
+        exit();
+    }
+    
+    // If email is missing but UID exists, try to retrieve email from database
+    if (!isset($_SESSION["email"]) && isset($_SESSION["uid"])) {
+        $user_id = $_SESSION["uid"];
+        $email_query = "SELECT email FROM user WHERE uid = ?";
+        $email_stmt = $db->prepare($email_query);
+        $email_stmt->bind_param("i", $user_id);
+        $email_stmt->execute();
+        $email_result = $email_stmt->get_result();
+        
+        if ($email_result->num_rows == 1) {
+            $email_row = $email_result->fetch_assoc();
+            $_SESSION["email"] = $email_row["email"];
+        } else {
+            // If we can't get the email, use a placeholder for logging purposes
+            $_SESSION["email"] = "user_" . $user_id . "@retrieved";
+        }
     }
     
     $company_id = $_SESSION["uid"];
