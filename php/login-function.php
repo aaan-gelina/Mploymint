@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $safe_email = mysqli_real_escape_string($db, $email);
 
-  $query = "SELECT uid, password, name, type FROM user WHERE email = ?";
+  $query = "SELECT uid, password, name, type, profileimg FROM user WHERE email = ?";
   $statement = $db->prepare($query);
   $statement->bind_param("s", $safe_email);
   $statement->execute();
@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION["uid"] = $row["uid"];
       $_SESSION["name"] = $row["name"];
       $_SESSION["type"] = $row["type"];
+      $_SESSION["profileimg"] = $row["profileimg"];
 
       if ($row["type"] === "jobseeker") {
         header("Location: ../joblist.php?type=jobseeker");
