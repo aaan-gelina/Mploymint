@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/dbconnect.php';
+    include 'dbconnect.php';
 
     if (!isset($_SESSION['uid'])) {
         die("You must log in to update your account.");

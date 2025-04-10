@@ -53,12 +53,15 @@ hr {
 .filters button:hover, .filters #searchbar:hover {
     border: 2px solid#338573;
 }
-.filters #submit, .filters #submitsearch {
+.submit button {
     background-color: #338573;
     border-color: #338573;
     color:white;
+    margin-left: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 7px;
 }
-.filters #submit:hover, .filters #submitsearch:hover {
+.submit:hover {
     background-color: white;
     color: #338573;
 }
