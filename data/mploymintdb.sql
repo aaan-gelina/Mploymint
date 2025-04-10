@@ -141,7 +141,7 @@ CREATE TABLE `user` (
   `name` varchar(250) NOT NULL,
   `type` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `profileimg` varchar(260) NOT NULL,
+  `profileimg` varchar(260) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `phone` int(10) DEFAULT NULL,
   `location` varchar(100) DEFAULT NULL,
