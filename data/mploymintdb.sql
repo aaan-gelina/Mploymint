@@ -27,14 +27,18 @@ SET time_zone = "+00:00";
 -- Table structure for table `application`
 --
 
+DROP TABLE IF EXISTS `application`;
+
 CREATE TABLE `application` (
-  `aid` int(11) NOT NULL,
-  `jid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `cid` int(11) NOT NULL,
-  `status` varchar(25) NOT NULL,
-  `archive` tinyint(1) NOT NULL DEFAULT 0
+  `aid` INT(11) NOT NULL AUTO_INCREMENT,
+  `jid` INT(11) NOT NULL,
+  `uid` INT(11) NOT NULL,
+  `cid` INT(11) NOT NULL,
+  `status` VARCHAR(25) NOT NULL DEFAULT 'pending',
+  `archive` TINYINT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 
@@ -43,7 +47,7 @@ CREATE TABLE `application` (
 --
 
 CREATE TABLE `audit_log` (
-  `alid` int(11) NOT NULL,
+  `alid` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
   `email` varchar(250) NOT NULL,
   `action` varchar(25) NOT NULL,
@@ -52,7 +56,8 @@ CREATE TABLE `audit_log` (
   `operation` varchar(25) NOT NULL,
   `prev_value` text NOT NULL,
   `new_value` text NOT NULL,
-  `timestamp` datetime NOT NULL DEFAULT current_timestamp()
+  `timestamp` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`alid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -62,13 +67,13 @@ CREATE TABLE `audit_log` (
 --
 
 CREATE TABLE `discussion` (
-  `did` int(11) NOT NULL,
-  `title` varchar(250) NOT NULL,
+  `did` int(11) NOT NULL AUTO_INCREMENT,
   `creatorid` int(11) NOT NULL,
   `members` text NOT NULL,
   `taglist` text DEFAULT NULL,
   `description` text DEFAULT NULL,
-  `archive` tinyint(1) NOT NULL DEFAULT 0
+  `archive` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`did`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -131,15 +136,20 @@ CREATE TABLE `resume` (
 --
 
 CREATE TABLE `user` (
-  `uid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(250) NOT NULL,
   `name` varchar(250) NOT NULL,
   `type` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `profileimg` varchar(260) NOT NULL,
+  `profileimg` varchar(260) DEFAULT NULL,
   `description` text DEFAULT NULL,
-  `archive` tinyint(1) NOT NULL DEFAULT 0
+  `phone` int(10) DEFAULT NULL,
+  `location` varchar(100) DEFAULT NULL,
+  `skills` text DEFAULT NULL,
+  `archive` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Indexes for dumped tables

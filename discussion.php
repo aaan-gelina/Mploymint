@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: login.php");
+    header("Location: ./login.php");
     exit();
 }
-require_once "php/discussion-function.php";
+require_once "./php/discussion-function.php";
 ?>
 
 <!DOCTYPE html>
@@ -13,16 +13,16 @@ require_once "php/discussion-function.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mploymint</title>
-    <link rel="stylesheet" href="css/discussion.css">
+    <link rel="stylesheet" href="./css/discussion.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
-    <?php include "top-navbar.php"; ?>
+    <?php include "./top-navbar.php"; ?>
     <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
 
     <div class="container">
-        <?php include "sidebar.php"; ?>
+        <?php include "./sidebar.php"; ?>
 
         <main class="forum">
             <div class="search-bar">
@@ -33,7 +33,7 @@ require_once "php/discussion-function.php";
             <p>Connect with professionals, ask questions, and share insights.</p>
 
             <div class="new-post-container">
-                <form method="POST" action="php/discussion-function.php">
+                <form method="POST" action="./php/discussion-function.php">
                     <textarea id="new-post-content" name="new-post-content" placeholder="Write something..." required></textarea>
                     <button type="submit" id="post-btn">Post</button>
                 </form>
@@ -45,7 +45,6 @@ require_once "php/discussion-function.php";
                     foreach ($posts as $post) { 
                         $author_name = $post['name'];
                         $first_letter = strtoupper(substr($author_name, 0, 1)); 
-
                         $post_text = $post['description']; 
                 ?>
                 <div class="post" data-post-id="<?php echo $post['did']; ?>">
@@ -57,7 +56,7 @@ require_once "php/discussion-function.php";
                     </div>
                     <p class="post-text"><?php echo nl2br($post_text); ?></p>
                     <?php if ($post['creatorid'] == $_SESSION['uid']) { ?>
-                        <form method="POST" action="discussion.php" onsubmit="return confirm('Delete?');">
+                        <form method="POST" action="./discussion.php" onsubmit="return confirm('Delete?');">
                             <input type="hidden" name="delete_post_id" value="<?php echo $post['did']; ?>">
                             <button type="submit" class="delete-btn">🗑️ Delete</button>
                         </form>
@@ -76,6 +75,6 @@ require_once "php/discussion-function.php";
         <br>
     </div>
 
-    <script src="js/discussion.js"></script>
+    <script src="./js/discussion.js"></script>
 </body>
 </html>

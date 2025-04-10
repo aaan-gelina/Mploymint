@@ -20,10 +20,10 @@ if (isset($_GET["error"])) {
 <body>
   <div class="container">
     <div class="left-section">
-        <h1 class="logo">Mploymint</h1>
-        <div class="headline">
-            Join Us and Find Your <span class="highlight">Dream Job</span> Today!
-        </div>
+      <h1 class="logo">Mploymint</h1>
+      <div class="headline">
+          Join Us and Find Your <span class="highlight">Dream Job</span> Today!
+      </div>
     </div>
 
     <div class="right-section">
@@ -33,7 +33,7 @@ if (isset($_GET["error"])) {
 
       <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
 
-      <form class="signup-form" method="POST" action="./php/signup-function.php">
+      <form class="signup-form" method="POST" action="./php/signup-function.php" enctype="multipart/form-data">
         <label for="name">Full Name</label>
         <input type="text" id="name" name="name" placeholder="Enter your full name" required>
         <label for="email">Email Address</label>
@@ -45,11 +45,13 @@ if (isset($_GET["error"])) {
           <option value="jobseeker">Job Seeker</option>
           <option value="company">Company</option>
         </select>
+        <label for="profileimg">Profile Image (optional)</label>
+        <input type="file" id="profileimg" name="profileimg" accept="image/*" />
         <button type="submit" class="signup-btn">Sign Up</button>
       </form>
 
       <p class="login-text">
-        Already have an account? <a href="login.php" class="login-link">Login</a>
+        Already have an account? <a href="./login.php" class="login-link">Login</a>
       </p>
     </div>
   </div>
