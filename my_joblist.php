@@ -4,7 +4,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   header("Location: ../login.php");
   exit();
 }
-require_once "php/my_joblist-function.php";
+require_once "./php/my_joblist-function.php";
 ?>
 
 <!DOCTYPE html>
@@ -12,16 +12,16 @@ require_once "php/my_joblist-function.php";
 <head>
   <meta charset="UTF-8">
   <title>Mploymint</title>
-  <link rel="stylesheet" href="css/discussion.css">
-  <link rel="stylesheet" href="css/joblist.css">
+  <link rel="stylesheet" href="./css/discussion.css">
+  <link rel="stylesheet" href="./css/joblist.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-  <?php include "top-navbar.php"; ?>
+  <?php include "./top-navbar.php"; ?>
   <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
 
   <div class="container">
-    <?php include "sidebar.php"; ?>
+    <?php include "./sidebar.php"; ?>
 
     <main class="forum">
       <div class="search-bar">
@@ -47,8 +47,8 @@ require_once "php/my_joblist-function.php";
                 </div>
               </div>
               <div class="action-buttons">
-                <a href="job.php?jid=<?= $job['jid'] ?>" class="apply-btn">Detail</a>
-                <form method="POST" action="php/my_joblist-function.php" onsubmit="return confirm('Cancel this application?');">
+                <a href="./job.php?jid=<?= $job['jid'] ?>" class="apply-btn">Detail</a>
+                <form method="POST" action="./php/my_joblist-function.php" onsubmit="return confirm('Cancel this application?');">
                   <input type="hidden" name="cancel_jid" value="<?= $job['jid'] ?>">
                   <button type="submit" class="apply-btn cancel">Cancel</button>
                 </form>
@@ -65,6 +65,6 @@ require_once "php/my_joblist-function.php";
   </div>
 
   <div class="footer"><br></div>
-  <script src="js/discussion.js"></script>
+  <script src="./js/joblist.js"></script>
 </body>
 </html>

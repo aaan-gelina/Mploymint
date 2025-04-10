@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mploymint</title>
-    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="./css/landing.css">
 </head>
 <body>
-    <?php include "top-navbar.php"; ?>
-    <?php include "php/landing-load-function.php"; ?>
+    <?php include "./top-navbar.php"; ?>
+    <?php include "./php/landing-load-function.php"; ?>
 
     <div class="hero">
         <div class="hero-text">
@@ -44,6 +44,6 @@
     <script>
         const jobs = <?= json_encode($jobs); ?>;
     </script>
-    <script src="js/landing.js"></script>
+    <script src="./js/landing.js"></script>
 </body>
 </html>
