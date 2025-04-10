@@ -40,9 +40,7 @@ if ($file["error"] !== UPLOAD_ERR_OK) {
 
 
 $allowed_mime_types = [
-    'application/pdf',                                                   
-    'application/msword',                                               
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
+    'application/pdf'
 ];
 $file_tmp_path = $file["tmp_name"];
 $file_mime_type = mime_content_type($file_tmp_path);
@@ -59,6 +57,13 @@ $extension = strtolower(pathinfo($original_filename, PATHINFO_EXTENSION));
 $new_filename = "resume_" . $uid . "_" . uniqid() . "." . $extension;
 
 
+if ($extension !== 'pdf') {
+    error_log("Invalid resume file extension uploaded: " . $extension . " for User ID: " . $uid);
+    header("Location: ../profile.php?error=type");
+    exit();
+}
+
+
 $project_root = $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/';
 $uploads_dir = $project_root . 'uploads';
 $resumes_dir = $uploads_dir . '/resumes';
@@ -70,7 +75,7 @@ $fallback_dir = $project_root . 'resumes_fallback';
 if (!is_dir($uploads_dir)) {
     if (!mkdir($uploads_dir, 0777, true)) {
         error_log("Failed to create uploads directory: " . $uploads_dir);
-        // Try to create fallback directory
+       
         if (!is_dir($fallback_dir) && !mkdir($fallback_dir, 0777, true)) {
             error_log("Failed to create fallback directory: " . $fallback_dir);
             header("Location: ../profile.php?error=dir_create");
@@ -94,7 +99,7 @@ if ($resumes_dir !== $fallback_dir && !is_dir($resumes_dir)) {
     chmod($resumes_dir, 0777);
 }
 
-// Log the dirs we're using
+
 error_log("Using directory for resume upload: " . $resumes_dir);
 
 
@@ -130,7 +135,6 @@ if (!move_uploaded_file($file_tmp_path, $destination_path)) {
     }
 }
 
-.
 $db->begin_transaction(); 
 
 try {
@@ -146,10 +150,10 @@ try {
     $insert_query = "INSERT INTO resume (uid, filename, archive) VALUES (?, ?, 0)";
     $stmt_insert = $db->prepare($insert_query);
     if (!$stmt_insert) throw new Exception("Prepare failed (insert): " . $db->error);
-    // Store just the filename - not the full path
+   
     $stmt_insert->bind_param("is", $uid, $new_filename); 
     if (!$stmt_insert->execute()) throw new Exception("Execute failed (insert): " . $stmt_insert->error);
-    $new_resume_id = $stmt_insert->insert_id; // Get the ID of the newly inserted resume
+    $new_resume_id = $stmt_insert->insert_id; 
     $stmt_insert->close();
 
     $db->commit(); 
@@ -160,7 +164,7 @@ try {
     exit();
 
 } catch (Exception $e) {
-    $db->rollback(); // Rollback transaction on error
+    $db->rollback(); 
     error_log("Database error during resume update for User ID: " . $uid . ". Error: " . $e->getMessage());
     
     

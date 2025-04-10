@@ -9,7 +9,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
 include_once "php/profile-function.php";
 
-// Fetch current resume
+
 $current_resume = null;
 if (isset($_SESSION['uid'])) {
     $uid = $_SESSION['uid'];
@@ -24,7 +24,7 @@ if (isset($_SESSION['uid'])) {
     $stmt->close();
 }
 
-// Define resume-specific error codes
+
 $resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'invalid'];
 
 ?>
@@ -55,7 +55,7 @@ $resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'inva
             <?php endif; ?>
 
             <?php 
-            // Show generic profile error ONLY if an error exists AND it's NOT a resume error
+           
             if (isset($_GET['error']) && !in_array($_GET['error'], $resume_error_codes)): 
             ?>
                 <div class="alert error">Error updating profile. Please try again.</div>
@@ -73,7 +73,7 @@ $resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'inva
                 </div>
 
                 <form class="profile-form" method="POST" action="/Mploymint/php/profile-function.php">
-                    <!-- Read-only fields -->
+                    
                     <div class="form-group">
                         <label>Full Name</label>
                         <input type="text" value="<?php echo $_SESSION['name']; ?>" readonly class="readonly-field">
@@ -108,13 +108,13 @@ $resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'inva
                 </form>
             </div>
 
-            <!-- Resume Section -->
+     
             <div class="profile-section">
                 <h3>Resume/CV</h3>
-                <p>Upload your resume in PDF or Word format (.pdf, .doc, .docx)</p>
+                <p>Upload your resume in PDF format (.pdf)</p>
 
                 <?php 
-                // Show resume-specific errors
+             
                 if (isset($_GET['error']) && in_array($_GET['error'], $resume_error_codes)): 
                 ?>
                     <div class="alert error">
@@ -124,7 +124,7 @@ $resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'inva
                                 echo 'Error during file upload process. Please try again.';
                                 break;
                             case 'type':
-                                echo 'Invalid file type. Please upload PDF or Word documents (.pdf, .doc, .docx) only.';
+                                echo 'Invalid file type. Please upload PDF only.';
                                 break;
                             case 'move':
                                 echo 'Error saving file. Please check permissions or try again.';
@@ -158,7 +158,7 @@ $resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'inva
                 <?php endif; ?>
 
                 <div class="resume-upload">
-                    <form action="php/upload-resume.php" method="POST" enctype="multipart/form-data">
+                    <form action="/Mploymint/php/upload-resume.php" method="POST" enctype="multipart/form-data">
                         <label for="resume" class="file-label">Choose a file or drag it here</label>
                         <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
                         <button type="submit" class="upload-btn">
@@ -167,7 +167,7 @@ $resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'inva
                     </form>
                 </div>
             </div>
-            <!-- End Resume Section -->
+           
 
         </main>
     </div>
