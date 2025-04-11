@@ -52,6 +52,8 @@ if (isset($_SESSION['uid'])) {
 
 $resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'invalid'];
 
+$upload_dir = 'uploads/resumes/';
+
 ?>
 
 <!DOCTYPE html>
