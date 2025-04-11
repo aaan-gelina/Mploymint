@@ -28,6 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../joblist.php?type=jobseeker");
       } elseif ($row["type"] === "company") {
         header("Location: ../joblist.php?type=company");
+      } elseif ($row["type"] === "admin") {
+        header("Location: ../admin.php");
       } else {
         header("Location: ../login.php?error=unknown_type");
       }
