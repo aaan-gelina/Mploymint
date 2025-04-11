@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../dbconnect.php';
+include __DIR__ . '/../dbconnect.php';
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../login.php");
