@@ -27,11 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $target_path = $upload_dir . $unique_name;
     if (move_uploaded_file($_FILES["profileimg"]["tmp_name"], $target_path)) {
       $profileimg = $unique_name;
-    } else {
-      echo "fail<br>";
-      echo "target path: " . htmlspecialchars($target_path) . "<br>";
-      echo "tmp path: " . htmlspecialchars($_FILES["profileimg"]["tmp_name"]);
-      exit();
     }
   }
   

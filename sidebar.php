@@ -2,6 +2,10 @@
 $uid = $_SESSION['uid'];
 include 'dbconnect.php';
 
+echo "<pre>DEBUG: \$_SESSION['profileimg'] = ";
+var_dump($_SESSION['profileimg']);
+echo "</pre>";
+
 $uid_query = $db->prepare("SELECT name, email, type FROM user WHERE uid = ?");
   $uid_query->bind_param("i", $uid);
   $uid_query->execute();
