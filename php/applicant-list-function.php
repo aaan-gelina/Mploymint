@@ -7,6 +7,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
+
 // Update application status if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
     $aid = $_POST['aid'];
@@ -108,11 +109,25 @@ if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
         call_user_func_array(array($stmt, 'bind_param'), $bind_names);
     }
     
+
+$applicants = [];
+$applicant_query = "SELECT u.name, u.email, a.resume, a.status 
+                    FROM application a 
+                    JOIN user u ON a.uid = u.uid 
+                    WHERE a.jid = ? AND a.archive = 0 
+                    ORDER BY a.aid DESC";
+
+if (isset($_GET['jid'])) {
+    $jid = $_GET['jid'];
+    $stmt = $db->prepare($applicant_query);
+    $stmt->bind_param("i", $jid);
+
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+
             // Set resume path if available, otherwise indicate "No resume"
             if (!empty($row['resume_filename'])) {
                 // Make sure we use relative paths for the actual links
@@ -128,6 +143,7 @@ if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
                 $row['resume_exists'] = false;
             }
             unset($row['resume_filename']); // Remove redundant field
+
             $applicants[] = $row;
         }
     }

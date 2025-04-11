@@ -17,6 +17,7 @@ body {
 .content {
     flex-grow: 1;
     min-height: 0;
+
     padding: 2vw;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
@@ -25,11 +26,14 @@ body {
 .forum {
     flex-grow: 1;
     min-height: 0;
+
+
     background: white;
     padding: 2vw;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
 }
+
 
 .alert {
     padding: 10px 15px;
@@ -48,6 +52,7 @@ body {
     color: #856404;
     border: 1px solid #ffeeba;
 }
+
 
 .navbar {
     display: flex;
@@ -175,6 +180,7 @@ a:hover {
     padding: 0.75%;
 }
 
+
 .no-resume {
     color: #999;
     font-style: italic;
@@ -224,6 +230,7 @@ a:hover {
 .profile-link:hover {
     text-decoration: underline;
 }
+
 
 @media (max-width: 767px) {
     .navbar {
