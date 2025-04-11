@@ -115,18 +115,17 @@ if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
         while ($row = $result->fetch_assoc()) {
             // Set resume path if available, otherwise indicate "No resume"
             if (!empty($row['resume_filename'])) {
-                $resumePath = $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/uploads/resumes/' . $row['resume_filename'];
-                // Check if file exists
-                if (file_exists($resumePath)) {
-                    $row['resume'] = '/Mploymint/uploads/resumes/' . $row['resume_filename'];
-                    $row['has_resume'] = true;
-                } else {
-                    $row['resume'] = '#';
-                    $row['has_resume'] = false;
-                }
+                // Make sure we use relative paths for the actual links
+                $row['resume'] = './uploads/resumes/' . $row['resume_filename'];
+                $row['has_resume'] = true;
+                
+                // For debugging, let's store the full path too
+                $fullResumePath = $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/uploads/resumes/' . $row['resume_filename'];
+                $row['resume_exists'] = file_exists($fullResumePath);
             } else {
                 $row['resume'] = '#';
                 $row['has_resume'] = false;
+                $row['resume_exists'] = false;
             }
             unset($row['resume_filename']); // Remove redundant field
             $applicants[] = $row;

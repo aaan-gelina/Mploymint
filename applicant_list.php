@@ -104,6 +104,9 @@ require_once "./php/applicant-list-function.php";
                             <td>
                                 <?php if ($applicant['has_resume']): ?>
                                     <a href="<?php echo htmlspecialchars($applicant['resume']); ?>" target="_blank">View</a>
+                                    <?php if (isset($applicant['resume_exists']) && !$applicant['resume_exists']): ?>
+                                        <span class="no-resume">(File missing)</span>
+                                    <?php endif; ?>
                                 <?php else: ?>
                                     <span class="no-resume">Not Uploaded</span>
                                 <?php endif; ?>
