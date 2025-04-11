@@ -134,7 +134,7 @@ if (!(htmlspecialchars($type) == "admin")) {
               <th>Description</th>
             </tr>
             <?php
-            $user_query = $db->prepare("SELECT uid, email, name, type, password, profileimg, description FROM user ORDER BY name ASC");
+            $user_query = $db->prepare("SELECT uid, email, name, type, password, profileimg, description FROM user WHERE archive = 0 ORDER BY name ASC");
             $user_query->execute();
             $user_query->bind_result($uid, $email, $name, $type, $password, $profileimg, $description);
             $hasUsers = false;
@@ -171,7 +171,7 @@ if (!(htmlspecialchars($type) == "admin")) {
                 <th>Description</th>
               </tr>
               <?php
-              $user_query = $db->prepare("SELECT uid, email, name, type, password, profileimg, description FROM user ORDER BY name ASC");
+              $user_query = $db->prepare("SELECT uid, email, name, type, password, profileimg, description FROM user WHERE archive = 0 ORDER BY name ASC");
               $user_query->execute();
               $user_query->bind_result($uid, $email, $name, $type, $password, $profileimg, $description);
               $hasUsers = false;
@@ -186,6 +186,7 @@ if (!(htmlspecialchars($type) == "admin")) {
                   <td><input type="text" name="users[<?php echo $uid; ?>][password]" value="<?php echo htmlspecialchars($password); ?>" /></td>
                   <td><input type="text" name="users[<?php echo $uid; ?>][profileimg]" value="<?php echo htmlspecialchars($profileimg); ?>" /></td>
                   <td><textarea name="users[<?php echo $uid; ?>][description]"><?php echo htmlspecialchars($description); ?></textarea></td>
+                  <td><button type="button" class="delete delete-user" data-id="<?php echo $uid; ?>">Delete</button></td>
                 </tr>
               <?php endwhile; ?>
               <?php if (!$hasUsers): ?>
@@ -216,7 +217,7 @@ if (!(htmlspecialchars($type) == "admin")) {
               <th>Status</th>
             </tr>
             <?php
-            $job_query = $db->prepare("SELECT jid, cid, curl, title, category, type, location, salary, experience, appdeadline, appurl, description, requs, resps, status FROM job ORDER BY title ASC");
+            $job_query = $db->prepare("SELECT jid, cid, curl, title, category, type, location, salary, experience, appdeadline, appurl, description, requs, resps, status FROM job WHERE archive = 0 ORDER BY title ASC");
             $job_query->execute();
             $job_query->bind_result($jid, $cid, $curl, $title, $category, $type, $location, $salary, $experience, $appdeadline, $appurl, $description, $requs, $resps, $status);
             $hasJobs = false;
@@ -269,7 +270,7 @@ if (!(htmlspecialchars($type) == "admin")) {
                 <th>Status</th>
               </tr>
               <?php
-              $job_query = $db->prepare("SELECT jid, cid, curl, title, category, type, location, salary, experience, appdeadline, appurl, description, requs, resps, status FROM job ORDER BY title ASC");
+              $job_query = $db->prepare("SELECT jid, cid, curl, title, category, type, location, salary, experience, appdeadline, appurl, description, requs, resps, status FROM job WHERE archive = 0 ORDER BY title ASC");
               $job_query->execute();
               $job_query->bind_result($jid, $cid, $curl, $title, $category, $type, $location, $salary, $experience, $appdeadline, $appurl, $description, $requs, $resps, $status);
               $hasJobs = false;
@@ -292,6 +293,7 @@ if (!(htmlspecialchars($type) == "admin")) {
                   <td><textarea name="jobs[<?php echo $jid; ?>][requs]"><?php echo htmlspecialchars($requs); ?></textarea></td>
                   <td><textarea name="jobs[<?php echo $jid; ?>][resps]"><?php echo htmlspecialchars($resps); ?></textarea></td>
                   <td><input type="text" name="jobs[<?php echo $jid; ?>][status]" value="<?php echo htmlspecialchars($status); ?>" /></td>
+                  <td><button type="button" class="delete delete-job" data-id="<?php echo $jid; ?>">Delete</button></td>
                 </tr>
               <?php endwhile; ?>
               <?php if (!$hasJobs): ?>
@@ -350,7 +352,7 @@ if (!(htmlspecialchars($type) == "admin")) {
               </tr>
 
               <?php
-              $application_query = $db->prepare("SELECT aid, jid, uid, cid, status FROM application ORDER BY aid ASC");
+              $application_query = $db->prepare("SELECT aid, jid, uid, cid, status FROM application WHERE archive = 0 ORDER BY aid ASC");
               $application_query->execute();
               $application_query->bind_result($aid, $jid, $uid, $cid, $status);
               $hasApplications = false;
@@ -364,6 +366,7 @@ if (!(htmlspecialchars($type) == "admin")) {
                   <td><input type="number" name="applications[<?php echo $aid; ?>][uid]" value="<?php echo htmlspecialchars($uid); ?>" /></td>
                   <td><input type="number" name="applications[<?php echo $aid; ?>][cid]" value="<?php echo htmlspecialchars($cid); ?>" /></td>
                   <td><input type="text" name="applications[<?php echo $aid; ?>][status]" value="<?php echo htmlspecialchars($status); ?>" /></td>
+                  <td><button type="button" class="delete delete-application" data-id="<?php echo $aid; ?>">Delete</button></td>
                 </tr>
               <?php endwhile; ?>
               <?php if (!$hasApplications): ?>
@@ -385,7 +388,7 @@ if (!(htmlspecialchars($type) == "admin")) {
               <th>Description</th>
             </tr>
             <?php
-            $discussion_query = $db->prepare("SELECT did, title, creatorid, members, taglist, description FROM discussion ORDER BY title ASC");
+            $discussion_query = $db->prepare("SELECT did, title, creatorid, members, taglist, description FROM discussion WHERE archive = 0 ORDER BY title ASC");
             $discussion_query->execute();
             $discussion_query->bind_result($did, $title, $creatorid, $members, $taglist, $description);
             $hasDiscussions = false;
@@ -420,7 +423,7 @@ if (!(htmlspecialchars($type) == "admin")) {
                 <th>Description</th>
               </tr>
               <?php
-              $discussion_query = $db->prepare("SELECT did, title, creatorid, members, taglist, description FROM discussion ORDER BY title ASC");
+              $discussion_query = $db->prepare("SELECT did, title, creatorid, members, taglist, description FROM discussion WHERE archive = 0 ORDER BY title ASC");
               $discussion_query->execute();
               $discussion_query->bind_result($did, $title, $creatorid, $members, $taglist, $description);
               $hasDiscussions = false;
@@ -434,6 +437,7 @@ if (!(htmlspecialchars($type) == "admin")) {
                   <td><textarea name="discussions[<?php echo $did; ?>][members]"><?php echo htmlspecialchars($members); ?></textarea></td>
                   <td><textarea name="discussions[<?php echo $did; ?>][taglist]"><?php echo htmlspecialchars($taglist); ?></textarea></td>
                   <td><textarea name="discussions[<?php echo $did; ?>][description]"><?php echo htmlspecialchars($description); ?></textarea></td>
+                  <td><button type="button" class="delete delete-discussion" data-id="<?php echo $did; ?>">Delete</button></td>
                 </tr>
               <?php endwhile; ?>
               <?php if (!$hasDiscussions): ?>
@@ -485,7 +489,7 @@ if (!(htmlspecialchars($type) == "admin")) {
                 <th>Time Sent</th>
               </tr>
               <?php
-              $message_query = $db->prepare("SELECT mid, did, senderid, text, timesent FROM message ORDER BY timesent DESC");
+              $message_query = $db->prepare("SELECT mid, did, senderid, text, timesent FROM message WHERE archive = 0 ORDER BY timesent DESC");
               $message_query->execute();
               $message_query->bind_result($mid, $did, $senderid, $text, $timesent);
               $hasMessages = false;
@@ -499,6 +503,7 @@ if (!(htmlspecialchars($type) == "admin")) {
                   <td><input type="number" name="messages[<?php echo $mid; ?>][senderid]" value="<?php echo htmlspecialchars($senderid); ?>" /></td>
                   <td><textarea name="messages[<?php echo $mid; ?>][text]"><?php echo htmlspecialchars($text); ?></textarea></td>
                   <td><input type="datetime-local" name="messages[<?php echo $mid; ?>][timesent]" value="<?php echo date('Y-m-d\TH:i', strtotime($timesent)); ?>" /></td>
+                  <td><button type="button" class="delete delete-message" data-id="<?php echo $mid; ?>">Delete</button></td>
                 </tr>
               <?php endwhile; ?>
               <?php if (!$hasMessages): ?>
@@ -515,7 +520,7 @@ if (!(htmlspecialchars($type) == "admin")) {
               <th>Filename</th>
             </tr>
             <?php
-            $resume_query = $db->prepare("SELECT rid, uid, filename FROM resume ORDER BY rid ASC");
+            $resume_query = $db->prepare("SELECT rid, uid, filename FROM resume WHERE archive = 0 ORDER BY rid ASC");
             $resume_query->execute();
             $resume_query->bind_result($rid, $uid, $filename);
             $hasResumes = false;
@@ -542,7 +547,7 @@ if (!(htmlspecialchars($type) == "admin")) {
                 <th>Filename</th>
               </tr>
               <?php
-              $resume_query = $db->prepare("SELECT rid, uid, filename FROM resume ORDER BY rid ASC");
+              $resume_query = $db->prepare("SELECT rid, uid, filename FROM resume WHERE archive = 0 ORDER BY rid ASC");
               $resume_query->execute();
               $resume_query->bind_result($rid, $uid, $filename);
               $hasResumes = false;
@@ -554,6 +559,7 @@ if (!(htmlspecialchars($type) == "admin")) {
                   <input type="hidden" name="resumes[<?php echo $rid; ?>][rid]" value="<?php echo htmlspecialchars($rid); ?>" />
                   <td><input type="number" name="resumes[<?php echo $rid; ?>][uid]" value="<?php echo htmlspecialchars($uid); ?>" /></td>
                   <td><input type="text" name="resumes[<?php echo $rid; ?>][filename]" value="<?php echo htmlspecialchars($filename); ?>" /></td>
+                  <td><button type="button" class="delete delete-resume" data-id="<?php echo $rid; ?>">Delete</button></td>
                 </tr>
               <?php endwhile; ?>
               <?php if (!$hasResumes): ?>
