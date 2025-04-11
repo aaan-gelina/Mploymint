@@ -103,89 +103,72 @@ $upload_dir = 'uploads/resumes/';
             <?php endif; ?>
 
             <?php 
-           
-            if (isset($_GET['error']) && !in_array($_GET['error'], $resume_error_codes)): 
+            if (isset($_GET['error']) && $_GET['error'] !== 'resume'): 
+                $error_message = "Error updating profile. Please try again.";
+                if ($_GET['error'] === 'database') {
+                    $error_message = "Database error. Please try again.";
+                } elseif ($_GET['error'] === 'session') {
+                    $error_message = "Session error. Please login again.";
+                }
             ?>
-                <div class="alert error">Error updating profile. Please try again.</div>
+                <div class="alert error"><?php echo $error_message; ?></div>
             <?php endif; ?>
 
-
-            <div class="profile-card">
-                <div class="profile-header">
-                    <div class="avatar-large">
-                        <?php 
-                        if ($view_only && $viewing_user) {
-                            echo strtoupper(substr($viewing_user['name'], 0, 1));
-                        } else {
-                            echo strtoupper($_SESSION['name'][0]);
-                        }
-                        ?>
-                    </div>
-                    <div class="profile-info">
-                        <h3>
-                            <?php echo $view_only && $viewing_user ? $viewing_user['name'] : $_SESSION['name']; ?>
-                        </h3>
-                        <p>
-                            <?php echo $view_only && $viewing_user ? $viewing_user['email'] : $_SESSION['email']; ?>
-                        </p>
-                    </div>
-                </div>
-
-                <?php if ($view_only && $viewing_user): ?>
+            <?php if ($view_only && $viewing_user): ?>
                 <!-- View-only display for applicant profile -->
-                <div class="profile-details">
-                    <div class="detail-group">
-                        <label>Full Name</label>
-                        <p><?php echo $viewing_user['name']; ?></p>
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="avatar-large">
+                            <?php echo strtoupper(substr($viewing_user['name'], 0, 1)); ?>
+                        </div>
+                        <div class="profile-info">
+                            <h3><?php echo $viewing_user['name']; ?></h3>
+                            <p><?php echo $viewing_user['email']; ?></p>
+                        </div>
                     </div>
+                    
+                    <div class="profile-details">
+                        <div class="detail-group">
+                            <label>Full Name</label>
+                            <p><?php echo $viewing_user['name']; ?></p>
+                        </div>
 
-                    <div class="detail-group">
-                        <label>Email</label>
-                        <p><?php echo $viewing_user['email']; ?></p>
-                    </div>
+                        <div class="detail-group">
+                            <label>Email</label>
+                            <p><?php echo $viewing_user['email']; ?></p>
+                        </div>
 
-                    <?php if (!empty($viewing_user['phone'])): ?>
-                    <div class="detail-group">
-                        <label>Phone Number</label>
-                        <p><?php echo $viewing_user['phone']; ?></p>
-                    </div>
-                    <?php endif; ?>
+                        <?php if (!empty($viewing_user['phone'])): ?>
+                        <div class="detail-group">
+                            <label>Phone Number</label>
+                            <p><?php echo $viewing_user['phone']; ?></p>
+                        </div>
+                        <?php endif; ?>
 
-                    <?php if (!empty($viewing_user['location'])): ?>
-                    <div class="detail-group">
-                        <label>Location</label>
-                        <p><?php echo $viewing_user['location']; ?></p>
-                    </div>
-                    <?php endif; ?>
+                        <?php if (!empty($viewing_user['location'])): ?>
+                        <div class="detail-group">
+                            <label>Location</label>
+                            <p><?php echo $viewing_user['location']; ?></p>
+                        </div>
+                        <?php endif; ?>
 
-                    <?php if (!empty($viewing_user['description'])): ?>
-                    <div class="detail-group">
-                        <label>Bio</label>
-                        <p><?php echo $viewing_user['description']; ?></p>
-                    </div>
-                    <?php endif; ?>
+                        <?php if (!empty($viewing_user['description'])): ?>
+                        <div class="detail-group">
+                            <label>Bio</label>
+                            <p><?php echo $viewing_user['description']; ?></p>
+                        </div>
+                        <?php endif; ?>
 
-                    <?php if (!empty($viewing_user['skills'])): ?>
-                    <div class="detail-group">
-                        <label>Skills</label>
-                        <p><?php echo $viewing_user['skills']; ?></p>
+                        <?php if (!empty($viewing_user['skills'])): ?>
+                        <div class="detail-group">
+                            <label>Skills</label>
+                            <p><?php echo $viewing_user['skills']; ?></p>
+                        </div>
+                        <?php endif; ?>
                     </div>
-                    <?php endif; ?>
                 </div>
-                <?php else: ?>
-                <!-- Editable form for own profile -->
-                <form class="profile-form" method="POST" action="./php/profile-function.php">
-                    <!-- Read-only fields -->
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" value="<?php echo $_SESSION['name']; ?>" readonly class="readonly-field">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" value="<?php echo $_SESSION['email']; ?>" readonly class="readonly-field">
-
-            <?php if ($_SESSION['type'] === 'company'): ?>
+            <?php else: ?>
+                <!-- Editable profile form -->
                 <div class="profile-card">
                     <div class="profile-header">
                         <div class="avatar-large">
@@ -195,12 +178,11 @@ $upload_dir = 'uploads/resumes/';
                             <h3><?php echo $_SESSION['name']; ?></h3>
                             <p><?php echo $_SESSION['email']; ?></p>
                         </div>
-
                     </div>
 
                     <form class="profile-form" method="POST" action="./php/profile-function.php">
                         <div class="form-group">
-                            <label>Company Name</label>
+                            <label><?php echo $_SESSION['type'] === 'company' ? 'Company Name' : 'Full Name'; ?></label>
                             <input type="text" value="<?php echo $_SESSION['name']; ?>" readonly class="readonly-field">
                         </div>
 
@@ -219,48 +201,12 @@ $upload_dir = 'uploads/resumes/';
                             <input type="text" id="location" name="location" value="<?php echo isset($_SESSION['location']) ? htmlspecialchars($_SESSION['location']) : ''; ?>" placeholder="Enter your location">
                         </div>
 
+                        <?php if ($_SESSION['type'] === 'company'): ?>
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea id="description" name="description" rows="4" placeholder="Describe your company"><?php echo isset($_SESSION['description']) ? htmlspecialchars($_SESSION['description']) : ''; ?></textarea>
                         </div>
-
-                        <button type="submit" class="save-btn">Save Changes</button>
-                    </form>
-                </div>
-            <?php else: ?>
-                <div class="profile-card">
-                    <div class="profile-header">
-                        <div class="avatar-large">
-                            <?php echo strtoupper($_SESSION['name'][0]); ?>
-                        </div>
-                        <div class="profile-info">
-                            <h3><?php echo $_SESSION['name']; ?></h3>
-                            <p><?php echo $_SESSION['email']; ?></p>
-                        </div>
-                    </div>
-
-                    <form class="profile-form" method="POST" action="./php/profile-function.php">
-                        
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" value="<?php echo $_SESSION['name']; ?>" readonly class="readonly-field">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" value="<?php echo $_SESSION['email']; ?>" readonly class="readonly-field">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" value="<?php echo isset($_SESSION['phone']) ? htmlspecialchars($_SESSION['phone']) : ''; ?>" placeholder="Enter your phone number">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="location">Location</label>
-                            <input type="text" id="location" name="location" value="<?php echo isset($_SESSION['location']) ? htmlspecialchars($_SESSION['location']) : ''; ?>" placeholder="Enter your location">
-                        </div>
-
+                        <?php else: ?>
                         <div class="form-group">
                             <label for="bio">Bio</label>
                             <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself"><?php echo isset($_SESSION['bio']) ? htmlspecialchars($_SESSION['bio']) : ''; ?></textarea>
@@ -270,14 +216,14 @@ $upload_dir = 'uploads/resumes/';
                             <label for="skills">Skills (comma separated)</label>
                             <input type="text" id="skills" name="skills" value="<?php echo isset($_SESSION['skills']) ? htmlspecialchars($_SESSION['skills']) : ''; ?>" placeholder="e.g. JavaScript, PHP, MySQL">
                         </div>
+                        <?php endif; ?>
 
                         <button type="submit" class="save-btn">Save Changes</button>
                     </form>
                 </div>
             <?php endif; ?>
 
-     
-            <?php if ($_SESSION['type'] !== 'company'): ?>
+            <?php if ($_SESSION['type'] !== 'company' && !$view_only): ?>
                 <div class="profile-section">
                     <h3>Resume/CV</h3>
                     <p>Upload your resume in PDF format (.pdf)</p>
@@ -301,7 +247,9 @@ $upload_dir = 'uploads/resumes/';
                                     echo 'Error saving resume information to the database. Please try again.';
                                     break;
                                 case 'dir_create':
-                                    echo 'Error creating upload directory. Please check server permissions.';
+                                case 'dir_missing':
+                                case 'dir_permissions':
+                                    echo 'Error with server directories. Please contact administrator.';
                                     break;
                                 case 'invalid':
                                     echo 'Invalid request or no file uploaded. Please select a file and try again.';
@@ -328,7 +276,7 @@ $upload_dir = 'uploads/resumes/';
                     <div class="resume-upload">
                         <form action="./php/upload-resume.php" method="POST" enctype="multipart/form-data">
                             <label for="resume" class="file-label">Choose a file or drag it here</label>
-                            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                            <input type="file" id="resume" name="resume" accept=".pdf" required>
                             <button type="submit" class="upload-btn">
                                 <i class="fas fa-upload"></i> Upload New Resume
                             </button>
@@ -336,13 +284,6 @@ $upload_dir = 'uploads/resumes/';
                     </div>
                 </div>
             <?php endif; ?>
-           
-
-
-                    <button type="submit" class="save-btn">Save Changes</button>
-                </form>
-                <?php endif; ?>
-            </div>
         </main>
     </div>
 
