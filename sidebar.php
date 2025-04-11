@@ -1,17 +1,14 @@
 <?php
+session_start();
 $uid = $_SESSION['uid'];
 include 'dbconnect.php';
 
-echo "<pre>DEBUG: \$_SESSION['profileimg'] = ";
-var_dump($_SESSION['profileimg']);
-echo "</pre>";
-
 $uid_query = $db->prepare("SELECT name, email, type FROM user WHERE uid = ?");
-  $uid_query->bind_param("i", $uid);
-  $uid_query->execute();
-  $uid_query->bind_result($name, $email, $type);
-  $uid_query->fetch();
-  $uid_query->close();
+$uid_query->bind_param("i", $uid);
+$uid_query->execute();
+$uid_query->bind_result($name, $email, $type);
+$uid_query->fetch();
+$uid_query->close();
 
 if (!(htmlspecialchars($type) == "company")) {
   $name_parts = explode("`", $name);
@@ -31,7 +28,6 @@ $is_default_img = $profileimg === 'profile.jpg';
     <li><a href="./joblist.php?type=company" class="menu-item"><i class="fas fa-briefcase"></i> Jobs</a></li>
     <li><a href="./applicant_list.php" class="menu-item"><i class="fas fa-users"></i> Applicant List</a></li>
     <li><a href="./profile.php" class="menu-item <?php echo $current_page === 'profile.php' ? 'active' : ''; ?>"><i class="fas fa-user"></i> Profile</a></li>
-
   <?php else: ?>
     <li><a href="./joblist.php" class="menu-item"><i class="fas fa-briefcase"></i> Jobs</a></li>
     <li><a href="./my_joblist.php" class="menu-item"><i class="fas fa-list"></i> My Jobs List</a></li>
@@ -52,7 +48,7 @@ $is_default_img = $profileimg === 'profile.jpg';
   <div class="user-profile">
     <?php if (!$is_default_img): ?>
       <div class="avatar-img">
-        <img src="<?php echo htmlspecialchars($profileimg); ?>" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+        <img src="./img/<?php echo htmlspecialchars($profileimg); ?>" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
       </div>
     <?php else: ?>
       <div class="avatar-initials">
