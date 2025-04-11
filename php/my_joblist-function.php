@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-include 'dbconnect.php';
+//include 'dbconnect.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/dbconnect.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
