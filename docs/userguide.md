@@ -146,6 +146,7 @@ Mploymint supports two types of users:
   - Application date
   - Current status
 - Use the search bar to filter applicants
+
 ## Admin
 -Manage all database content on admin page
 -View log of all database interactions on admin page
