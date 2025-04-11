@@ -1,3 +1,22 @@
+
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.querySelector(".search-input");
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    // Search functionality
+    if (searchInput) {
+        searchInput.addEventListener("input", () => {
+            const query = searchInput.value.toLowerCase();
+            document.querySelectorAll("tbody tr").forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query) ? "" : "none";
+            });
+        });
+    }
+
+    // Sidebar toggle functionality
+
 document.addEventListener("DOMContentLoaded", function() {
     const applicantData = [
         { name: "Jane Doe", email: "jane@example.com", resume: "Link", status: "Pending" },
@@ -25,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
+
 
     if (menuToggle && sidebar) {
         menuToggle.addEventListener('click', function() {

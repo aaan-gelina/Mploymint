@@ -1,6 +1,6 @@
 <?php
 session_start();
-include $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/dbconnect.php';
+include 'dbconnect.php';
 
 $jobs = [];
 $job_query = "SELECT jid, title, location, type, salary FROM job WHERE status = 'active' AND archive = 0 ORDER BY jid DESC";

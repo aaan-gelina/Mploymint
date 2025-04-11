@@ -127,6 +127,66 @@ p {
     background-color: #246c48;
 }
 
+.profile-section {
+    background: white;
+    border-radius: 8px;
+    padding: 2vw;
+    margin-top: 2vh;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.current-resume {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+.current-resume a {
+    color: #2F855A;
+    text-decoration: none;
+}
+
+.current-resume a:hover {
+    text-decoration: underline;
+}
+
+.resume-upload {
+    border: 2px dashed #ddd;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.resume-upload .file-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #666;
+}
+
+.resume-upload input[type="file"] {
+    margin-bottom: 15px;
+}
+
+.upload-btn {
+    background-color: #2F855A;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.upload-btn i {
+    margin-right: 8px;
+}
+
+.upload-btn:hover {
+    background-color: #246c48;
+}
+
 .readonly-field {
     background-color: #f5f5f5;
     cursor: not-allowed;
@@ -184,18 +244,59 @@ p {
         font-size: 14px;
     }
 
-    .save-btn {
+    .save-btn, .upload-btn {
         width: 100%;
     }
 }
+
 .footer {
     background-color: #338573;
     width: 100%;
     bottom: 0px;
     left: 0px;
     padding: 0.75%;
-  }
+}
 
 .profile-page .sidebar .user-profile {
     display: none;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.detail-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail-group label {
+    color: #333;
+    font-weight: bold;
+}
+
+.detail-group p {
+    margin: 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    border-left: 3px solid #2F855A;
+}
+
+.view-only-header {
+    margin-bottom: 20px;
+}
+
+.view-only-header .back-link {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #2F855A;
+    text-decoration: none;
+}
+
+.view-only-header .back-link:hover {
+    text-decoration: underline;
 }

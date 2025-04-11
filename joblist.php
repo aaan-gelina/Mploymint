@@ -53,6 +53,7 @@ require_once "./php/joblist-function.php";
               <?php if ($_SESSION['type'] === 'company'): ?>
                 <div class="action-buttons">
                   <a href="./job.php?jid=<?= $job['jid'] ?>" class="apply-btn">View</a>
+                  <a href="./applicant_list.php?jid=<?= $job['jid'] ?>" class="apply-btn">Applicants</a>
                   <form method="POST" action="./php/joblist-function.php" style="display:inline;">
                     <input type="hidden" name="delete_jid" value="<?= $job['jid'] ?>">
                     <button type="submit" class="apply-btn">Delete</button>

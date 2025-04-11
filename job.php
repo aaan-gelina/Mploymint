@@ -66,7 +66,7 @@
                         Apply Now
                     </button>
                 <?php else: ?>
-                    <a href="/Mploymint/login.php" class="button apply">Login to Apply</a>
+                    <a href="login.php" class="button apply">Login to Apply</a>
                 <?php endif; ?>
             </div>
             <div class="container">
@@ -168,7 +168,7 @@
 
                     console.log("Applying for job:", jid, "User:", uid, "Company:", cid);
 
-                    fetch("/Mploymint/php/apply.php", {
+                    fetch("php/apply.php", {
                         method: "POST",
                         headers: { "Content-Type": "application/x-www-form-urlencoded" },
                         body: `jid=${jid}&uid=${uid}&cid=${cid}`

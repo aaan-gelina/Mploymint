@@ -8,6 +8,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Handle file input styling
+    const fileInput = document.getElementById('resume');
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            const fileName = this.files[0]?.name;
+            if (fileName) {
+                // You could add UI feedback here if needed, like updating the label
+                const label = document.querySelector('.resume-upload .file-label');
+                if (label) {
+                    label.textContent = fileName;
+                }
+                console.log('Selected file:', fileName);
+            }
+        });
+    }
+
     // Form submission handling
     const profileForm = document.querySelector('.profile-form');
     if (profileForm) {

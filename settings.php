@@ -119,7 +119,7 @@
 
                     console.log("Submitting profile update:", Object.fromEntries(formData));
 
-                    fetch("/Mploymint/php/updateuser.php", {
+                    fetch("php/updateuser.php", {
                         method: "POST",
                         body: formData
                     })
@@ -156,7 +156,7 @@
 
                 console.log("Submitting password reset:", Object.fromEntries(formData));
 
-                fetch("/Mploymint/php/resetpassword.php", {
+                fetch("php/resetpassword.php", {
                     method: "POST",
                     body: formData
                 })
@@ -189,7 +189,7 @@
 
                     console.log("Uploading file:", file.name);
 
-                    fetch("/Mploymint/php/uploadphoto.php", {
+                    fetch("php/uploadphoto.php", {
                         method: "POST",
                         body: formData
                     })
