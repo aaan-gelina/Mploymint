@@ -8,6 +8,13 @@ $(document).ready(function () {
     let $editmessage = $('.filters #edit-message');
     let $editresume = $('.filters #edit-resume');
 
+    let $deleteuser = $('.delete-user');
+    let $deletejob = $('.delete-job');
+    let $deleteapplication = $('.delete-application');
+    let $deletediscussion = $('.delete-discussion');
+    let $deletemessage = $('.delete-message');
+    let $deleteresume = $('.delete-resume');
+
     let $submituser = $('.filters #submit-user');
     let $submitjob = $('.filters #submit-job');
     let $submitapplication = $('.filters #submit-application');
@@ -392,6 +399,78 @@ $(document).ready(function () {
         $searchbar.show();
         $searchresume.show();
     });
+
+    $deleteuser.click(function () {
+        const uid = $(this).data("id");
+    
+        if (!confirm("Are you sure you want to delete this user?")) return;
+    
+        $.post("php/archiveuser.php", { uid: uid }, function (response) {
+            console.log(response);
+            localStorage.setItem("selectedTab", "Users");
+            location.reload();
+        });
+    });
+    
+    $deletejob.click(function () {
+        const jid = $(this).data("id");
+    
+        if (!confirm("Are you sure you want to delete this job?")) return;
+    
+        $.post("php/archivejob.php", { jid: jid }, function (response) {
+            console.log(response);
+            localStorage.setItem("selectedTab", "Jobs");
+            location.reload();
+        });
+    });
+    
+    $deleteapplication.click(function () {
+        const aid = $(this).data("id");
+    
+        if (!confirm("Are you sure you want to delete this application?")) return;
+    
+        $.post("php/archiveapplication.php", { aid: aid }, function (response) {
+            console.log(response);
+            localStorage.setItem("selectedTab", "Applications");
+            location.reload();
+        });
+    });
+    
+    $deletediscussion.click(function () {
+        const did = $(this).data("id");
+    
+        if (!confirm("Are you sure you want to delete this discussion?")) return;
+    
+        $.post("php/archivediscussion.php", { did: did }, function (response) {
+            console.log(response);
+            localStorage.setItem("selectedTab", "Discussions");
+            location.reload();
+        });
+    });
+    
+    $deletemessage.click(function () {
+        const mid = $(this).data("id");
+    
+        if (!confirm("Are you sure you want to delete this message?")) return;
+    
+        $.post("php/archivemessage.php", { mid: mid }, function (response) {
+            console.log(response);
+            localStorage.setItem("selectedTab", "Messages");
+            location.reload();
+        });
+    });
+    
+    $deleteresume.click(function () {
+        const rid = $(this).data("id");
+    
+        if (!confirm("Are you sure you want to delete this resume?")) return;
+    
+        $.post("php/archiveresume.php", { rid: rid }, function (response) {
+            console.log(response);
+            localStorage.setItem("selectedTab", "Resumes");
+            location.reload();
+        });
+    });       
 
     $searchlog.click(function() {
         
