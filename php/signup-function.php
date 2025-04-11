@@ -19,8 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit();
   }
 
-  $upload_dir = realpath(__DIR__ . '/../img/') . '/';
+  $profileimg = null;
   if (isset($_FILES["profileimg"]) && $_FILES["profileimg"]["error"] === 0) {
+    $upload_dir = realpath(__DIR__ . '/../img/') . '/';
     $img_name = basename($_FILES["profileimg"]["name"]);
     $unique_name = time() . "_" . $img_name;
     $target_path = $upload_dir . $unique_name;
