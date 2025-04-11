@@ -105,10 +105,24 @@ $upload_dir = 'uploads/resumes/';
             <?php 
             if (isset($_GET['error']) && $_GET['error'] !== 'resume'): 
                 $error_message = "Error updating profile. Please try again.";
+                
+                // More detailed error messages
                 if ($_GET['error'] === 'database') {
-                    $error_message = "Database error. Please try again.";
+                    $error_message = "Database error occurred. Please try again.";
+                } elseif ($_GET['error'] === 'database_prepare') {
+                    $error_message = "Error preparing database query. Please try again.";
+                } elseif ($_GET['error'] === 'database_bind') {
+                    $error_message = "Error binding parameters. Please try again.";
+                } elseif ($_GET['error'] === 'database_execute') {
+                    $error_message = "Error executing database query. Please try again.";
                 } elseif ($_GET['error'] === 'session') {
                     $error_message = "Session error. Please login again.";
+                } elseif ($_GET['error'] === 'db_connect') {
+                    $error_message = "Database connection failed. Please contact administrator.";
+                } elseif ($_GET['error'] === 'db_include') {
+                    $error_message = "Database configuration error. Please contact administrator.";
+                } elseif ($_GET['error'] === 'exception') {
+                    $error_message = "An unexpected error occurred. Please try again.";
                 }
             ?>
                 <div class="alert error"><?php echo $error_message; ?></div>
