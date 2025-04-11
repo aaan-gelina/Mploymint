@@ -1,9 +1,9 @@
 <?php
 session_start();
-include __DIR__ . '/../dbconnect.php';
+include_once dirname(__FILE__) . '/../dbconnect.php';
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: ./login.php");
+    header("Location: ../login.php");
     exit();
 }
 
@@ -98,29 +98,35 @@ if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
     if (isset($_GET['jid']) && !empty($_GET['jid'])) {
         $stmt->bind_param($param_type, $param_value);
     } else {
-        // Bind multiple parameters for IN clause
-        $bind_names[] = $param_type;
-        for ($i = 0; $i < count($param_value); $i++) {
-            $bind_name = 'param' . $i;
-            $$bind_name = $param_value[$i];
-            $bind_names[] = &$$bind_name;
+        try {
+            // Bind multiple parameters for IN clause
+            $bind_names = array();
+            $bind_names[] = $param_type;
+            for ($i = 0; $i < count($param_value); $i++) {
+                $bind_name = 'param' . $i;
+                $$bind_name = $param_value[$i];
+                $bind_names[] = &$$bind_name;
+            }
+            call_user_func_array(array($stmt, 'bind_param'), $bind_names);
+        } catch (Exception $e) {
+            error_log("Error binding parameters: " . $e->getMessage());
+            // Handle error gracefully - perhaps set a flag to show no results
         }
-        call_user_func_array(array($stmt, 'bind_param'), $bind_names);
     }
     
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
+    if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             // Set resume path if available, otherwise indicate "No resume"
             if (!empty($row['resume_filename'])) {
                 // Make sure we use relative paths for the actual links
-                $row['resume'] = './uploads/resumes/' . $row['resume_filename'];
+                $row['resume'] = '../uploads/resumes/' . $row['resume_filename'];
                 $row['has_resume'] = true;
                 
                 // For debugging, check if file exists using relative path
-                $resumePath = __DIR__ . '/../uploads/resumes/' . $row['resume_filename'];
+                $resumePath = dirname(__FILE__) . '/../uploads/resumes/' . $row['resume_filename'];
                 $row['resume_exists'] = file_exists($resumePath);
             } else {
                 $row['resume'] = '#';
