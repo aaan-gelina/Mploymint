@@ -62,24 +62,35 @@ $base_dir = dirname(__FILE__) . '/..';
 $uploads_dir = $base_dir . '/uploads';
 $resumes_dir = $uploads_dir . '/resumes';
 
-// Create upload directory if it doesn't exist
-if (!is_dir($uploads_dir)) {
-    error_log("Attempting to create uploads directory: " . $uploads_dir);
-    if (!mkdir($uploads_dir, 0755, true)) {
-        error_log("Failed to create uploads directory: " . $uploads_dir . ". Error: " . error_get_last()['message']);
-        header("Location: ../profile.php?error=dir_create");
-        exit();
-    }
+// Check if directories exist and are writable
+if (!is_dir($resumes_dir)) {
+    error_log("Resumes directory does not exist: " . $resumes_dir);
+    header("Location: ../profile.php?error=dir_missing");
+    exit();
 }
 
-// Create resumes directory if it doesn't exist
-if (!is_dir($resumes_dir)) {
-    error_log("Attempting to create resumes directory: " . $resumes_dir);
-    if (!mkdir($resumes_dir, 0755, true)) {
-        error_log("Failed to create resumes directory: " . $resumes_dir . ". Error: " . error_get_last()['message']);
-        header("Location: ../profile.php?error=dir_create");
+if (!is_writable($resumes_dir)) {
+    error_log("Resumes directory is not writable: " . $resumes_dir);
+    
+    // Try to create a user-specific directory
+    $user_resumes_dir = $uploads_dir . '/user_' . $uid;
+    
+    if (!is_dir($user_resumes_dir)) {
+        if (!mkdir($user_resumes_dir, 0755, true)) {
+            error_log("Failed to create user-specific resumes directory: " . $user_resumes_dir);
+            header("Location: ../profile.php?error=dir_permissions");
+            exit();
+        }
+    }
+    
+    if (!is_writable($user_resumes_dir)) {
+        error_log("User-specific directory is also not writable: " . $user_resumes_dir);
+        header("Location: ../profile.php?error=dir_permissions");
         exit();
     }
+    
+    // Use the user-specific directory instead
+    $resumes_dir = $user_resumes_dir;
 }
 
 error_log("Using directory for resume upload: " . $resumes_dir);
@@ -90,6 +101,7 @@ if (!move_uploaded_file($file_tmp_path, $destination_path)) {
     $move_error = error_get_last();
     error_log("Failed to move uploaded file via move_uploaded_file: " . ($move_error['message'] ?? 'Unknown error'));
     
+    // Try copy as a fallback
     if (copy($file_tmp_path, $destination_path)) {
         unlink($file_tmp_path); 
         error_log("Successfully copied file using copy() instead");
@@ -97,6 +109,10 @@ if (!move_uploaded_file($file_tmp_path, $destination_path)) {
         $copy_error = error_get_last();
         error_log("Both move_uploaded_file and copy failed for resume: " . $original_filename . 
                   " to " . $destination_path . ". Error: " . ($copy_error['message'] ?? 'Unknown error'));
+        
+        // Get directory permissions for debugging
+        $perms = substr(sprintf('%o', fileperms($resumes_dir)), -4);
+        error_log("Directory permissions: " . $perms);
         
         header("Location: ../profile.php?error=move");
         exit();
@@ -114,19 +130,22 @@ try {
     if (!$stmt_archive->execute()) throw new Exception("Execute failed (archive): " . $stmt_archive->error);
     $stmt_archive->close();
 
+    // Store just the filename, not the full path
+    $stored_filename = basename($destination_path);
+    
     // Insert new resume record
     $insert_query = "INSERT INTO resume (uid, filename, archive) VALUES (?, ?, 0)";
     $stmt_insert = $db->prepare($insert_query);
     if (!$stmt_insert) throw new Exception("Prepare failed (insert): " . $db->error);
    
-    $stmt_insert->bind_param("is", $uid, $new_filename); 
+    $stmt_insert->bind_param("is", $uid, $stored_filename); 
     if (!$stmt_insert->execute()) throw new Exception("Execute failed (insert): " . $stmt_insert->error);
     $new_resume_id = $stmt_insert->insert_id; 
     $stmt_insert->close();
 
     $db->commit(); 
     
-    error_log("Resume uploaded successfully for user ID: " . $uid . ". File: " . $new_filename . " saved to " . $destination_path);
+    error_log("Resume uploaded successfully for user ID: " . $uid . ". File: " . $stored_filename . " saved to " . $destination_path);
     header("Location: ../profile.php?success=resume");
     exit();
 

@@ -45,6 +45,19 @@ if (isset($_SESSION['uid'])) {
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
         $current_resume = $result->fetch_assoc();
+        
+        // Check if the file exists in the regular resumes directory
+        $standard_path = 'uploads/resumes/' . $current_resume['filename'];
+        $user_specific_path = 'uploads/user_' . $uid . '/' . $current_resume['filename'];
+        
+        // Set the actual path to use
+        if (file_exists($standard_path)) {
+            $current_resume['path'] = $standard_path;
+        } elseif (file_exists($user_specific_path)) {
+            $current_resume['path'] = $user_specific_path;
+        } else {
+            $current_resume['path'] = $standard_path; // Default to standard even if not found
+        }
     }
     $stmt->close();
 }
@@ -306,7 +319,7 @@ $upload_dir = 'uploads/resumes/';
 
                     <?php if ($current_resume): ?>
                         <div class="current-resume">
-                            <p>Current Resume: <a href="uploads/resumes/<?php echo htmlspecialchars($current_resume['filename']); ?>" target="_blank"><?php echo htmlspecialchars($current_resume['filename']); ?></a></p>
+                            <p>Current Resume: <a href="<?php echo htmlspecialchars($current_resume['path']); ?>" target="_blank"><?php echo htmlspecialchars($current_resume['filename']); ?></a></p>
                         </div>
                     <?php else: ?>
                         <p>No resume uploaded yet.</p> 
