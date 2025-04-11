@@ -1,170 +1,193 @@
-# Mploymint User Guide
+# Mploymint User Walkthrough & Guide
 
 ## Introduction
-Mploymint is a web-based job portal designed to connect jobseekers with employers. The platform provides a seamless experience for both jobseekers looking for employment opportunities and companies looking to hire talented individuals.
+Mploymint is a web-based job portal designed to connect jobseekers with employers. It provides a seamless experience for individuals seeking employment and for companies looking to post job opportunities and manage applicants.
+
+---
 
 ## Getting Started
 
 ### System Requirements
 - Modern web browser (Chrome, Firefox, Safari, Edge)
 - Internet connection
-- XAMPP for local deployment
+- XAMPP (for local deployment)
 
 ### Installation
-1. Clone or download the Mploymint repository
-2. Place the project folder in your XAMPP's htdocs directory
-3. Import the database using the provided SQL file
-4. Start Apache and MySQL services in XAMPP
+1. Clone or download the Mploymint repository.
+2. Place the project folder inside your XAMPP `htdocs` directory.
+3. Import the provided SQL file into your database using phpMyAdmin or the terminal.
+4. Start Apache and MySQL services in XAMPP.
 
+---
 
 ## User Types
-Mploymint supports two types of users:
-- **Jobseekers**: Individuals looking for job opportunities
-- **Companies**: Organizations posting job openings
+Mploymint supports two user roles:
+- **Jobseekers**: Can search and apply to job postings, manage their profile and resume, and participate in the discussion forum.
+- **Companies**: Can post jobs, manage applicants, and update company details.
+
+---
 
 ## Landing Page
-- Access the homepage to view a list of active job postings
-- Job listings display titles, locations, contract types, and salaries
-- Scroll through listings or use the search bar to find specific jobs by title
-- Click the login button in the top navigation bar to access the login page
+- When users visit the homepage (`landing.php`), they see a list of active job postings.
+- Each posting displays the job title, contract type, location, and salary.
+- Users can scroll to browse more listings or search using the job title search bar.
+- The top navigation bar includes a **Login** button, which directs to the login page.
+
+---
 
 ## Account Management
 
 ### Login
-- Enter your email and password at the login page
-- If you don't have an account, click the sign-up link
-- The system automatically detects your account type based on your email:
-  - Jobseekers are redirected to the job listings page
-  - Companies are redirected to their job posting management page
-- Example test account: test@gmail.com / p123
+- Enter email and password to log in.
+- If no account exists, click the **Sign Up** link.
+- The system checks the user type and redirects accordingly:
+  - **Jobseekers**: Redirected to the job listings page.
+  - **Companies**: Redirected to their job management dashboard.
+- Example test credentials: `test@gmail.com / p123`
 
 ### Sign Up
-- Fill in your name, email address, and password
-- Select your account type (Jobseeker or Company)
-- Optionally upload a profile picture
-- Error messages will guide you if there are issues (e.g., email already exists)
-- Upon successful registration, you'll be redirected to the login page
+- Fill in name, email, password, account type (Jobseeker or Company), and optionally upload a profile picture.
+- Validation ensures unique emails and appropriate input.
+- On success, users are redirected to the login page.
 
 ### Logout
-- Click the logout button in the top navigation bar
-- This ends your session and returns you to the landing page
+- Clicking the **Logout** button in the top navigation ends the session and returns users to the landing page.
+
+---
 
 ## Navigation
 
 ### Top Navigation Bar
-- Contains the Mploymint logo, navigation links, and logout button
-- Consistent across all pages for easy navigation
+- Includes the Mploymint logo, dynamic buttons (e.g., Login, Logout, Post a Job), and links for quick access.
 
 ### Sidebar
-- Located on the left side after logging in
-- Provides quick access to different sections of the platform
-- Navigation options vary based on user type:
-  - Jobseekers: Jobs, My Jobs List, Discussion, Profile
-  - Companies: Jobs, Applicant List, Settings
-- Displays user information and profile picture at the bottom
-- If no profile picture is uploaded, displays user initials
+- Visible after login, located on the left side of the screen.
+- Displays navigation links based on user type:
+  - **Jobseekers**: Jobs, My Jobs List, Discussion, Profile
+  - **Companies**: Jobs, Applicant List, Settings
+  - **Admins**: All of the above, plus Admin Dashboard
+- Profile picture or initials are shown at the bottom of the sidebar.
 
-## Jobseeker Features
+---
 
-### Profile Management
-- Access your profile by clicking "Profile" in the sidebar
-- View and edit personal information:
-  - Name and email (read-only)
-  - Phone number, location, bio, and skills (editable)
-- Changes are saved immediately when you click "Save Changes"
-- Success or error messages are displayed after submission
-
-### Resume Management
-- Upload your resume through the Profile page
-- Supported format: PDF
-- View your current resume or upload a new one
-- Error messages guide you if there are issues with the upload
+## Jobseeker Experience
 
 ### Job Listings
-- View all active job postings in a card format
-- Each card displays:
-  - Job title, company name, location, contract type, and salary
-  - "Detail" button to view more information
-  - "Apply" button for quick application
-- Applied jobs show a green checkmark labeled "Applied"
-- Use the search bar to find specific jobs by title
+- Jobseekers are directed to a scrollable list of active job postings upon login.
+- Each job card shows:
+  - Title, company, location, contract type, salary
+  - **Detail** button for full description
+  - **Apply** button to submit an application
+- Applied jobs display a green “Applied” checkmark.
+- Jobs can be searched by title.
 
 ### Job Details
-- Click the "Detail" button on a job card to view comprehensive information
-- Includes full job description, requirements, and application details
-- Apply to the job directly from the details page
+- Clicking **Detail** opens the job detail page, showing:
+  - Full description, requirements, application link or process
+- Applications can be submitted from this page.
 
 ### My Applied Jobs
-- Access your applied jobs by clicking "My Jobs List" in the sidebar
-- View all jobs you've applied to, including:
-  - Job title, company name, and application status
-  - "Detail" button to view job information
-  - "Cancel" button to withdraw your application
-
-### Discussion Forum
-- Access by clicking "Discussion" in the sidebar
-- Post messages, questions, or comments
-- View all posts, including your own
-- Search posts by content
-- Delete only your own posts using the delete button
-
-## Company Features
+- Accessed via **My Jobs List** in the sidebar.
+- Displays all jobs the user has applied to with:
+  - Job title, company name, application status
+  - **Detail** and **Cancel** buttons for managing applications
 
 ### Profile Management
-- Access your company profile by clicking "Profile" in the sidebar
-- View and edit company information:
-  - Company name and email (read-only)
-  - Phone number, location, and company description (editable)
-- Changes are saved immediately when you click "Save Changes"
+- Accessible via **Profile** in the sidebar.
+- Allows editing of:
+  - Phone number, location, bio, and skills
+- Name and email fields are read-only.
+- Changes are saved via AJAX with success/error feedback.
+
+### Resume Management
+- Resume upload handled on the Profile page.
+- Only PDF format is accepted.
+- Uploaded resumes can be viewed or replaced.
+
+### Discussion Forum
+- Accessed via **Discussion** in the sidebar.
+- Users can:
+  - Post messages or questions
+  - View and search all posts
+  - Delete only their own messages
+- All posts are displayed chronologically.
+
+---
+
+## Company Experience
 
 ### Job Management
-- View all your job postings by clicking "Jobs" in the sidebar
-- Each job card displays:
-  - Job title, location, contract type, and salary
-  - "View" button to see detailed information
-  - "Delete" button to archive the posting
-- Use the search bar to filter job postings
-- Click "Post a Job" button to create new job listings
+- Upon login, companies are redirected to their **Jobs** page.
+- Displays all their current job postings in card format.
+- Each card shows:
+  - Job title, location, contract type, salary
+  - **View** and **Delete** (archive) buttons
+- Search bar enables filtering by job attributes.
 
 ### Creating Job Postings
-- Click "Post a Job" button in the jobs page
-- Fill in all required information:
-  - Company details (name, website)
-  - Job details (title, category, type, location, salary)
-  - Requirements (experience, qualifications)
-  - Application information (deadline, link)
-  - Comprehensive job description
-- Click "Post Job" to publish the listing
-- Form validation ensures all information is correct
+- Accessible via **Post a Job** in the top navigation.
+- Form collects:
+  - Job title, category, type, location, salary
+  - Requirements, responsibilities (stored as delimited arrays)
+  - Application method (deadline, link)
+- Input is validated client-side and processed server-side using prepared statements.
 
-### Managing Applicants
-- Access applicant lists by clicking "Applicant List" in the sidebar
-- View all applicants for a specific job posting
-- Information displayed includes:
-  - Applicant name and email
-  - Resume link for download and review
-  - Application date
-  - Current status
-- Use the search bar to filter applicants
+### Applicant Management
+- Accessible via **Applicant List** in the sidebar.
+- For each job posting, view a list of applicants:
+  - Name, email, resume link, application date, and status
+- Applicant details are view-only.
+- Data is filtered based on job ownership and user session.
 
-## Admin
--Manage all database content on admin page
--View log of all database interactions on admin page
+### Company Profile
+- Accessible via **Profile** in the sidebar.
+- Fields for phone, location, and company description are editable.
+- Company name and email are read-only.
+- Profile image and description can be updated.
 
-## All Users
--Access Settings in sidebar
--Manage account details such as email, password, profile photo, and description
+---
+
+## Admin Panel
+
+### Access
+- Only visible in the sidebar for users with admin privileges.
+
+### Functionality
+- Full database control via `admin.php` with CRUD support for:
+  - Users, Jobs, Applications, Discussions, Messages, Resumes
+- Features:
+  - Tabbed view with persistent state
+  - Editable table rows
+  - Archive buttons that trigger `archive<Entity>.php`
+  - All edits submitted via AJAX to `edit<Entity>.php`
+  - Full audit logging (JSON snapshot of old/new values)
+- A log of all database changes is available.
+- Search and filter buttons are present but filtering was not fully implemented.
+
+---
+
+## Settings (All Users)
+
+- Accessible via **Settings** in the sidebar.
+- Features:
+  - Edit name, email, password, description
+  - Upload/change profile image
+- JavaScript handles form toggling and visibility
+- Submissions handled via AJAX and logged to `audit_log`
+
+---
 
 ## Troubleshooting
 
 ### Common Issues
-- **404 Error**: Check your URL path and ensure all files exist
-- **500 Error**: Check error logs for PHP or server issues
-- **Upload Errors**: Ensure file formats are supported and file sizes are reasonable
-- **Database Errors**: Check your database connection and schema
+- **404 Error**: Check file paths and routing
+- **500 Error**: Inspect server logs and PHP syntax
+- **Resume Upload Error**: Only PDF format supported
+- **Database Errors**: Ensure connection settings are correct and schema is imported
 
 ### Error Messages
-- The system provides specific error messages to help diagnose issues
-- For resume uploads, error codes indicate the exact problem (invalid file type, permission issues, etc.)
+- User-friendly errors provided throughout the platform
+- Resume upload issues return specific error codes for invalid format or permission problems
+
 
 
