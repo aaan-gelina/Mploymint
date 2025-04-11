@@ -7,7 +7,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
-// Update application status if form is submitted
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
     $aid = $_POST['aid'];
     $status = $_POST['status'];
@@ -28,11 +28,11 @@ $job = null;
 $jid = 0;
 $company_jobs = [];
 
-// Get company ID from session
+
 if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
     $cid = $_SESSION['uid'];
     
-    // Retrieve all jobs from this company
+
     $jobs_query = "SELECT jid, title FROM job WHERE cid = ? AND archive = 0";
     $stmt = $db->prepare($jobs_query);
     $stmt->bind_param("i", $cid);
@@ -45,11 +45,11 @@ if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
         }
     }
     
-    // If specific job selected
+
     if (isset($_GET['jid']) && !empty($_GET['jid'])) {
         $jid = intval($_GET['jid']);
         
-        // Get job details
+  
         $job_query = "SELECT j.*, u.name as company 
                     FROM job j 
                     JOIN user u ON j.cid = u.uid 
@@ -62,15 +62,15 @@ if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
             $job = $result->fetch_assoc();
         }
         
-        // Only show applicants for selected job
+        
         $where_clause = "a.jid = ?";
         $param_type = "i";
         $param_value = $jid;
     } else {
-        // Show applicants for all company jobs
+        
         $job_ids = array_keys($company_jobs);
         if (empty($job_ids)) {
-            return; // No jobs posted
+            return; 
         }
         
         $where_clause = "a.jid IN (" . implode(',', array_fill(0, count($job_ids), '?')) . ")";
@@ -78,7 +78,7 @@ if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
         $param_value = $job_ids;
     }
     
-    // Get applicants with resume information
+  
     $applicant_query = "SELECT u.name, u.email, u.uid, a.status, r.filename as resume_filename, a.aid, a.jid, j.title as job_title,
                         (SELECT timestamp FROM audit_log 
                          WHERE db_table = 'application' AND operation = 'INSERT' 
@@ -94,12 +94,12 @@ if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
     
     $stmt = $db->prepare($applicant_query);
     
-    // Bind parameters differently based on whether we're filtering by a specific job
+    
     if (isset($_GET['jid']) && !empty($_GET['jid'])) {
         $stmt->bind_param($param_type, $param_value);
     } else {
         try {
-            // Bind multiple parameters for IN clause
+         
             $bind_names = array();
             $bind_names[] = $param_type;
             for ($i = 0; $i < count($param_value); $i++) {
@@ -110,7 +110,7 @@ if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
             call_user_func_array(array($stmt, 'bind_param'), $bind_names);
         } catch (Exception $e) {
             error_log("Error binding parameters: " . $e->getMessage());
-            // Handle error gracefully - perhaps set a flag to show no results
+         
         }
     }
     
@@ -119,13 +119,13 @@ if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
 
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            // Set resume path if available, otherwise indicate "No resume"
+            
             if (!empty($row['resume_filename'])) {
-                // Make sure we use relative paths for the actual links
+             
                 $row['resume'] = '../uploads/resumes/' . $row['resume_filename'];
                 $row['has_resume'] = true;
                 
-                // For debugging, check if file exists using relative path
+              
                 $resumePath = dirname(__FILE__) . '/../uploads/resumes/' . $row['resume_filename'];
                 $row['resume_exists'] = file_exists($resumePath);
             } else {
@@ -133,7 +133,7 @@ if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
                 $row['has_resume'] = false;
                 $row['resume_exists'] = false;
             }
-            unset($row['resume_filename']); // Remove redundant field
+            unset($row['resume_filename']); 
             $applicants[] = $row;
         }
     }
