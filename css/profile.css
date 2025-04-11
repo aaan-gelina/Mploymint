@@ -260,3 +260,43 @@ p {
 .profile-page .sidebar .user-profile {
     display: none;
 }
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.detail-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail-group label {
+    color: #333;
+    font-weight: bold;
+}
+
+.detail-group p {
+    margin: 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    border-left: 3px solid #2F855A;
+}
+
+.view-only-header {
+    margin-bottom: 20px;
+}
+
+.view-only-header .back-link {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #2F855A;
+    text-decoration: none;
+}
+
+.view-only-header .back-link:hover {
+    text-decoration: underline;
+}
