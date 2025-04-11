@@ -119,9 +119,9 @@ if (isset($_SESSION['uid']) && $_SESSION['type'] === 'company') {
                 $row['resume'] = './uploads/resumes/' . $row['resume_filename'];
                 $row['has_resume'] = true;
                 
-                // For debugging, let's store the full path too
-                $fullResumePath = $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/uploads/resumes/' . $row['resume_filename'];
-                $row['resume_exists'] = file_exists($fullResumePath);
+                // For debugging, check if file exists using relative path
+                $resumePath = '../uploads/resumes/' . $row['resume_filename'];
+                $row['resume_exists'] = file_exists($resumePath);
             } else {
                 $row['resume'] = '#';
                 $row['has_resume'] = false;

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'dbconnect.php';
+include '../dbconnect.php';
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../login.php");
@@ -159,7 +159,7 @@ $resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'inva
                 </div>
                 <?php else: ?>
                 <!-- Editable form for own profile -->
-                <form class="profile-form" method="POST" action="/Mploymint/php/profile-function.php">
+                <form class="profile-form" method="POST" action="./php/profile-function.php">
                     <!-- Read-only fields -->
                     <div class="form-group">
                         <label>Full Name</label>
@@ -183,7 +183,7 @@ $resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'inva
 
                     </div>
 
-                    <form class="profile-form" method="POST" action="/Mploymint/php/profile-function.php">
+                    <form class="profile-form" method="POST" action="./php/profile-function.php">
                         <div class="form-group">
                             <label>Company Name</label>
                             <input type="text" value="<?php echo $_SESSION['name']; ?>" readonly class="readonly-field">
@@ -224,7 +224,7 @@ $resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'inva
                         </div>
                     </div>
 
-                    <form class="profile-form" method="POST" action="/Mploymint/php/profile-function.php">
+                    <form class="profile-form" method="POST" action="./php/profile-function.php">
                         
                         <div class="form-group">
                             <label>Full Name</label>
@@ -311,7 +311,7 @@ $resume_error_codes = ['upload', 'type', 'move', 'database', 'dir_create', 'inva
                     <?php endif; ?>
 
                     <div class="resume-upload">
-                        <form action="/Mploymint/php/upload-resume.php" method="POST" enctype="multipart/form-data">
+                        <form action="./php/upload-resume.php" method="POST" enctype="multipart/form-data">
                             <label for="resume" class="file-label">Choose a file or drag it here</label>
                             <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
                             <button type="submit" class="upload-btn">
