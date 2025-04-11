@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/dbconnect.php';
+    include 'dbconnect.php';
     $requs = null;
     $resps = null;
 
