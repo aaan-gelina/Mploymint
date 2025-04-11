@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/dbconnect.php';
+    include 'dbconnect.php';
     $requs = null;
     $resps = null;
 
@@ -44,103 +44,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job Description</title>
     <link rel="stylesheet" href="./css/job.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   </head>
   <body>
-  <?php //include "top-navbar.php"; ?>
-    <?php //if ($logged_in): include "sidebar.php"; ?>
-    <?php //endif; ?>
-    <main class="layout">
-        <div class="head-container">
-          <h1 class="main-heading">Mploymint</h1>
-        </div>
-        <div class="page-title">
-            <h2 class="page-heading"><?= htmlspecialchars($job['title']); ?></h2>
-        </div>
-        <div class="button-container">
-        <button class="button" id="view-company-btn" data-cid="<?= htmlspecialchars($job['cid']); ?>">View Company</button>
-            <?php if (isset($_SESSION['uid'])): ?>
-                <button id="apply-btn" class="button apply" 
-                    data-jid="<?= htmlspecialchars($job['jid']); ?>" 
-                    data-uid="<?= htmlspecialchars($_SESSION['uid']); ?>" 
-                    data-cid="<?= htmlspecialchars($job['cid']); ?>">
-                    Apply Now
-                </button>
-            <?php else: ?>
-                <a href="/Mploymint/login.php" class="button apply">Login to Apply</a>
-            <?php endif; ?>
-        </div>
-        <div class="container">
-            <div class="attr-container">
-                <span class="attr">
-                    <label>Company:</label>
-                    <p><?= htmlspecialchars($job['company_name'] ?? 'Unknown'); ?></p>
-                </span>
-                <?php if (isset($job['curl']) && !empty(trim($job['curl']))): ?>
-                    <span class="attr">
-                        <label>Company Website:</label>
-                        <p><a href="https://<?= htmlspecialchars($job['curl']); ?>" target="_blank"><?= htmlspecialchars($job['curl']); ?></a></p>
-                    </span>
-                <?php endif; ?>
-                <span class="attr">
-                    <label>Position:</label>
-                    <p><?= htmlspecialchars($job['category']); ?></p>
-                </span>
-                <?php if (isset($job['experience']) && !empty(trim($job['experience']))): ?>
-                    <span class="attr">
-                        <label>Required Experience:</label>
-                        <p><?= htmlspecialchars($job['experience']); ?></p>
-                    </span>
-                <?php endif; ?>
-                <span class="attr">
-                    <label>Location:</label>
-                    <p><?= htmlspecialchars($job['location']); ?></p>
-                </span>
-                <?php if (isset($job['appdeadline']) && !empty(trim($job['appdeadline']))): ?>
-                    <span class="attr">
-                        <label>Application Deadline:</label>
-                        <p><?= htmlspecialchars($job['appdeadline']); ?></p>
-                    </span>
-                <?php endif; ?>
-                <span class="attr">
-                    <label>Salary:</label>
-                    <p>$<?= htmlspecialchars($job['salary']); ?></p>
-                </span>
-                <?php if (isset($job['appurl']) && !empty(trim($job['appurl']))): ?>
-                    <span class="attr">
-                        <label>External Application Link:</label>
-                        <p><a href="https://<?= htmlspecialchars($job['appurl']); ?>" target="_blank"><?= htmlspecialchars($job['appurl']); ?></a></p>
-                    </span>
-                <?php endif; ?>
-                <?php if (isset($job['description']) && !empty(trim($job['description']))): ?>
-                    <h3>Job Description</h3>
-                    <p><?= htmlspecialchars($job['description']); ?></p>
+    <?php include "top-navbar.php"; ?>
+    <button class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></button>
+    <div class="cont">
+        <?php include "sidebar.php"; ?>
+        <main class="layout">
+            <div class="page-title">
+                <h2 class="page-heading"><?= htmlspecialchars($job['title']); ?></h2>
+            </div>
+            <div class="button-container">
+            <button class="button" id="view-company-btn" data-cid="<?= htmlspecialchars($job['cid']); ?>">View Company</button>
+                <?php if (isset($_SESSION['uid'])): ?>
+                    <button id="apply-btn" class="button apply" 
+                        data-jid="<?= htmlspecialchars($job['jid']); ?>" 
+                        data-uid="<?= htmlspecialchars($_SESSION['uid']); ?>" 
+                        data-cid="<?= htmlspecialchars($job['cid']); ?>">
+                        Apply Now
+                    </button>
+                <?php else: ?>
+                    <a href="/Mploymint/login.php" class="button apply">Login to Apply</a>
                 <?php endif; ?>
             </div>
-            <div class="requ-container">
-                <?php if (isset($job['requs']) && !empty(trim($job['requs']))): ?>
-                    <h3>Requirements</h3>
-                    <ul>
-                        <?php if (!empty($requs)): ?>
-                            <?php foreach ($requs as $req): ?>
-                                <li><?= htmlspecialchars(trim($req)); ?></li>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </ul>
-                <?php endif; ?>
-                <?php if (isset($job['resps']) && !empty(trim($job['resps']))): ?>
-                <h3>Responsibilities</h3>
-                    <ul>
-                        <?php if (!empty($resps)): ?>
-                            <?php foreach ($resps as $resp): ?>
-                                <li><?= htmlspecialchars(trim($resp)); ?></li>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </ul>
-                <?php endif; ?>
+            <div class="container">
+                <div class="attr-container">
+                    <span class="attr">
+                        <label>Company:</label>
+                        <p><?= htmlspecialchars($job['company_name'] ?? 'Unknown'); ?></p>
+                    </span>
+                    <?php if (isset($job['curl']) && !empty(trim($job['curl']))): ?>
+                        <span class="attr">
+                            <label>Company Website:</label>
+                            <p><a href="https://<?= htmlspecialchars($job['curl']); ?>" target="_blank"><?= htmlspecialchars($job['curl']); ?></a></p>
+                        </span>
+                    <?php endif; ?>
+                    <span class="attr">
+                        <label>Position:</label>
+                        <p><?= htmlspecialchars($job['category']); ?></p>
+                    </span>
+                    <?php if (isset($job['experience']) && !empty(trim($job['experience']))): ?>
+                        <span class="attr">
+                            <label>Required Experience:</label>
+                            <p><?= htmlspecialchars($job['experience']); ?></p>
+                        </span>
+                    <?php endif; ?>
+                    <span class="attr">
+                        <label>Location:</label>
+                        <p><?= htmlspecialchars($job['location']); ?></p>
+                    </span>
+                    <?php if (isset($job['appdeadline']) && !empty(trim($job['appdeadline']))): ?>
+                        <span class="attr">
+                            <label>Application Deadline:</label>
+                            <p><?= htmlspecialchars($job['appdeadline']); ?></p>
+                        </span>
+                    <?php endif; ?>
+                    <span class="attr">
+                        <label>Salary:</label>
+                        <p>$<?= htmlspecialchars($job['salary']); ?></p>
+                    </span>
+                    <?php if (isset($job['appurl']) && !empty(trim($job['appurl']))): ?>
+                        <span class="attr">
+                            <label>External Application Link:</label>
+                            <p><a href="https://<?= htmlspecialchars($job['appurl']); ?>" target="_blank"><?= htmlspecialchars($job['appurl']); ?></a></p>
+                        </span>
+                    <?php endif; ?>
+                    <?php if (isset($job['description']) && !empty(trim($job['description']))): ?>
+                        <h3>Job Description</h3>
+                        <p><?= htmlspecialchars($job['description']); ?></p>
+                    <?php endif; ?>
+                </div>
+                <div class="requ-container">
+                    <?php if (isset($job['requs']) && !empty(trim($job['requs']))): ?>
+                        <h3>Requirements</h3>
+                        <ul>
+                            <?php if (!empty($requs)): ?>
+                                <?php foreach ($requs as $req): ?>
+                                    <li><?= htmlspecialchars(trim($req)); ?></li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </ul>
+                    <?php endif; ?>
+                    <?php if (isset($job['resps']) && !empty(trim($job['resps']))): ?>
+                    <h3>Responsibilities</h3>
+                        <ul>
+                            <?php if (!empty($resps)): ?>
+                                <?php foreach ($resps as $resp): ?>
+                                    <li><?= htmlspecialchars(trim($resp)); ?></li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </ul>
+                    <?php endif; ?>
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
     <div class="footer">
       <br>
     </div>

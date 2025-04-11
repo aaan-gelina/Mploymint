@@ -1,6 +1,6 @@
 <?php
 session_start();
-include $_SERVER['DOCUMENT_ROOT'] . '/Mploymint/dbconnect.php';
+require '../dbconnect.php';
 
 header('Content-Type: application/json');
 

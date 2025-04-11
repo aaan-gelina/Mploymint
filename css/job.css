@@ -8,6 +8,9 @@ button:hover, a:hover {
 a:hover {
     text-decoration: underline;
 }
+.cont {
+    display: flex;
+}
 .page-title {
     background-color: #F4F5F7;
     width: 100%;
